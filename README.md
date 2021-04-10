@@ -4,7 +4,7 @@ This is my official website.
 
 ### Who Am I ?
 
-My name is Mustafa Kemal GOKCE.I am 20 years old. I am studying on Istanbul Medeniyet University. My interests are Neural Networks, Deep Learning and some OOP Programming Languages.(Python, C, C++, etc.)
+My name is Mustafa Kemal GOKCE.I am 20 years old. I am studying at Istanbul Medeniyet University. My interests are Neural Networks, Deep Learning and some OOP Programming Languages.(Python, C, C++, etc.)
 
 
 ### What is ExpWords ?
