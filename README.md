@@ -16,7 +16,7 @@ ExpWords is a word game. It is my first game. You can reach it on [google play s
 
 ### Support or Contact
 
-Having trouble with ExpWords or anything? This is my email and you can reach me on this [E-mail](mkemalgokce10@gmail.com).
+Having trouble with ExpWords or anything? This is my email and you can reach me on this mkemalgokce10@gmail.com.
 
 
 ### ExpWords Privacy Policy
