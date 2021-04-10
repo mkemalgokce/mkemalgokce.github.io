@@ -9,7 +9,8 @@ My name is Mustafa Kemal GOKCE.I am 20 years old. I am studying at Istanbul Mede
 
 ### What is ExpWords ?
 
-ExpWords is a game. It is my first game. You can reach it on [google play store](https://play.google.com/store/apps/details?id=com.OM2G.ExpWords) or [app store](https://apps.apple.com/us/app/expwords-letter-game/id1561234703).
+ExpWords is a word game. It is my first game. You can reach it on [google play store](https://play.google.com/store/apps/details?id=com.OM2G.ExpWords) or [app store](https://apps.apple.com/us/app/expwords-letter-game/id1561234703).
+
 
 
 
