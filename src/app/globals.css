@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ios-blue: 0 122 255;
+    --ios-gray-50: 249 249 249;
+    --ios-gray-100: 242 242 242;
+    --ios-gray-200: 229 229 229;
+    --ios-gray-300: 212 212 212;
+    --ios-gray-400: 163 163 163;
+    --ios-gray-500: 115 115 115;
+    --ios-gray-600: 82 82 82;
+    --ios-gray-700: 64 64 64;
+    --ios-gray-800: 38 38 38;
+    --ios-gray-900: 23 23 23;
+  }
+
+  .dark {
+    --ios-blue: 10 132 255;
+  }
+
+  body {
+    @apply bg-ios-gray-50 text-ios-gray-900 dark:bg-ios-gray-900 dark:text-ios-gray-50 min-h-screen antialiased;
+  }
+}
