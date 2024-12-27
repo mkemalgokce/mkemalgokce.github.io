@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from "next/link"
-import { SiGithub, SiAppstore } from 'react-icons/si'
+import { SiGithub, SiLinkedin } from 'react-icons/si'
 import { HiMail } from 'react-icons/hi'
 import Header from "@/components/Header"
 import IOSHero from "@/components/IOSHero"
@@ -42,12 +42,12 @@ export default function ClientHome({ posts }: ClientHomeProps) {
                   transition={{ duration: 0.2 }}
                 >
                   <Link href={`/blog/${post.slug}`}>
-                    <div className="h-full p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <div className="h-full p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                       <h3 className="text-lg font-medium text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
                         {post.title}
                       </h3>
                       <div className="flex items-center gap-2 my-2">
-                        <div className="w-1 h-1 rounded-full bg-gray-400" />
+                        <div className="w-1 h-1 rounded-full bg-gray-50" />
                         <time className="text-gray-500 dark:text-gray-400 text-sm">
                           {post.date}
                         </time>
@@ -79,32 +79,32 @@ export default function ClientHome({ posts }: ClientHomeProps) {
               
               <div className="flex gap-8 pt-4">
                 <motion.a
-                  href="https://github.com/mustafakemalgordesli"
+                  href="https://github.com/mkemalgokce"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition-all hover:bg-gray-100 dark:hover:bg-gray-800 group"
+                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center transition-all group"
                 >
                   <SiGithub className="w-10 h-10 text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors" />
                 </motion.a>
                 <motion.a
-                  href="mailto:mustafagordesli@icloud.com"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition-all hover:bg-gray-100 dark:hover:bg-gray-800 group"
-                >
-                  <HiMail className="w-10 h-10 text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors" />
-                </motion.a>
-                <motion.a
-                  href="https://apps.apple.com/developer/yourid"
+                  href="https://linkedin.com/in/mkemalgokce"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition-all hover:bg-gray-100 dark:hover:bg-gray-800 group"
+                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center transition-all group"
                 >
-                  <SiAppstore className="w-10 h-10 text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors" />
+                  <SiLinkedin className="w-10 h-10 text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors" />
+                </motion.a>
+                <motion.a
+                  href="mailto:mkemalgokce10@gmail.com"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center transition-all group"
+                >
+                  <HiMail className="w-10 h-10 text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors" />
                 </motion.a>
               </div>
             </div>

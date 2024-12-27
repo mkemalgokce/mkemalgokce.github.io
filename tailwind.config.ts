@@ -34,20 +34,22 @@ const config: Config = {
               content: '""'
             },
             code: {
-              backgroundColor: 'rgb(var(--ios-gray-100) / 1)',
+              backgroundColor: '#ffebee',
               padding: '0.25rem 0.375rem',
               borderRadius: '0.375rem',
               fontWeight: '400',
+              color: '#24292f'
             },
             'pre code': {
               backgroundColor: 'transparent',
               padding: '0',
               borderRadius: '0',
               fontWeight: '400',
+              color: '#24292f'
             },
             pre: {
-              backgroundColor: 'rgb(var(--ios-gray-100) / 1)',
-              color: 'rgb(var(--ios-gray-900) / 1)',
+              backgroundColor: '#ffebee',
+              color: '#24292f',
               borderRadius: '0.75rem',
             },
             a: {
@@ -70,11 +72,16 @@ const config: Config = {
         invert: {
           css: {
             code: {
-              backgroundColor: 'rgb(var(--ios-gray-800) / 1)',
+              backgroundColor: '#161b22',
+              color: '#ffffff'
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              color: '#ffffff'
             },
             pre: {
-              backgroundColor: 'rgb(var(--ios-gray-800) / 1)',
-              color: 'rgb(var(--ios-gray-50) / 1)',
+              backgroundColor: '#161b22',
+              color: '#ffffff',
             }
           }
         }

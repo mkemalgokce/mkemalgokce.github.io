@@ -2,7 +2,12 @@ import { getPostBySlug, getAllPosts } from "@/lib/markdown"
 import { Metadata } from "next"
 import Header from "@/components/Header"
 import HomeFooter from "@/components/HomeFooter"
-import { PageProps } from "../../../../.next/types/app/layout"
+import './syntax-light.css'
+
+type Props = {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -11,7 +16,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
   
@@ -27,21 +32,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
   const post = getPostBySlug(slug)
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col bg-white dark:bg-black">
+      <div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117]">
         <Header />
-        <main className="flex-1">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="max-w-3xl mx-auto">
-              <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-8">
-                Post Not Found
-              </h1>
-            </div>
+        <main className="flex-1 container mx-auto px-4 py-16">
+          <div className="max-w-3xl mx-auto">
+            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Post Not Found
+            </h1>
           </div>
         </main>
         <HomeFooter />
@@ -50,23 +53,26 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-black">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117]">
       <Header />
       <main className="flex-1">
-        <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <article className="container mx-auto px-4 py-16">
           <div className="max-w-3xl mx-auto">
             <header className="mb-8">
-              <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                 {post.title}
               </h1>
-              <time className="text-gray-500 dark:text-gray-400">
-                {post.date}
-              </time>
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full bg-gray-50" />
+                <time className="text-gray-600 dark:text-gray-400">
+                  {post.date}
+                </time>
+              </div>
             </header>
-            <div 
-              className="prose dark:prose-invert prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+
+            <div className="prose prose-gray dark:prose-invert prose-pre:p-4 max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            </div>
           </div>
         </article>
       </main>

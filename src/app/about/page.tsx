@@ -1,37 +1,43 @@
 'use client'
 
-import { SiSwift, SiXcode, SiFirebase, SiGithub, SiGit } from 'react-icons/si'
-import { FaApple, FaCode, FaRocket, FaAppStoreIos } from 'react-icons/fa'
-import { HiMail } from 'react-icons/hi'
-import { TbDeviceImac } from 'react-icons/tb'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import Header from '@/components/Header'
-import HomeFooter from '@/components/HomeFooter'
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { SiGithub, SiLinkedin } from "react-icons/si"
+import { HiMail } from "react-icons/hi"
+import { SiSwift, SiXcode, SiGit, SiDocker, SiCplusplus, SiPython } from "react-icons/si"
+import { FaCode, FaRocket, FaMobileAlt, FaDatabase } from "react-icons/fa"
+import Header from "@/components/Header"
+import HomeFooter from "@/components/HomeFooter"
 
 const skills = [
-  { name: 'Swift', icon: SiSwift, level: 90 },
-  { name: 'SwiftUI', icon: FaApple, level: 85 },
-  { name: 'UIKit', icon: FaApple, level: 88 },
-  { name: 'Xcode', icon: SiXcode, level: 85 },
-  { name: 'Firebase', icon: SiFirebase, level: 80 },
+  { name: "Swift", icon: SiSwift, level: 90 },
+  { name: "Xcode", icon: SiXcode, level: 85 },
+  { name: "Git", icon: SiGit, level: 80 },
+  { name: "Docker", icon: SiDocker, level: 75 },
+  { name: "C++", icon: SiCplusplus, level: 85 },
+  { name: "Python", icon: SiPython, level: 70 },
 ]
 
-const highlights = [
+const iosSkills = [
   {
     title: "iOS Development",
-    icon: FaApple,
-    description: "Building native iOS applications with Swift, SwiftUI, and UIKit"
+    icon: FaMobileAlt,
+    items: ["UIKit", "SwiftUI", "Core Data", "Core Animation", "Auto Layout", "Storyboard & XIB", "Programmatic UI"]
   },
   {
-    title: "Clean Architecture",
+    title: "Architecture & Patterns",
     icon: FaCode,
-    description: "Implementing MVVM pattern and following clean code principles"
+    items: ["MVVM", "Clean Architecture", "Protocol-Oriented", "Dependency Injection", "Repository Pattern", "Singleton", "Observer"]
   },
   {
-    title: "App Store Success",
+    title: "Development Tools",
     icon: FaRocket,
-    description: "Experience in app submission and App Store optimization"
+    items: ["Xcode", "Instruments", "CocoaPods", "SPM", "Fastlane", "Charles Proxy", "Git"]
+  },
+  {
+    title: "Backend Integration",
+    icon: FaDatabase,
+    items: ["RESTful APIs", "JSON", "URLSession", "Alamofire", "WebSocket", "JWT", "OAuth"]
   }
 ]
 
@@ -49,7 +55,7 @@ export default function AboutPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex-shrink-0"
               >
-                <div className="relative w-48 h-48 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                <div className="relative w-48 h-48 rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800">
                   <Image
                     src="/avatar.jpg"
                     alt="Profile"
@@ -66,29 +72,40 @@ export default function AboutPage() {
                 className="flex-1 text-center md:text-left"
               >
                 <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-4">
-                  iOS Developer
+                  Mustafa Kemal Gökçe
                 </h1>
+                <h2 className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                  iOS Developer
+                </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                  I&apos;m passionate about creating elegant and user-friendly mobile applications.
-                  With a strong foundation in Swift and SwiftUI, I focus on delivering high-quality apps
-                  that provide great user experiences.
+                  I am an iOS Developer with 3 years of experience. I started in C++ and worked as a Research & Development engineer before moving to iOS development. I am skilled in Swift and focus on writing clean, well-structured code.
                 </p>
                 <div className="flex justify-center md:justify-start gap-4">
                   <motion.a
-                    href="https://github.com/mustafakemalgordesli"
+                    href="https://github.com/mkemalgokce"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
                   >
                     <SiGithub className="w-5 h-5 text-gray-700 dark:text-white" />
                   </motion.a>
                   <motion.a
-                    href="mailto:mustafagordesli@icloud.com"
+                    href="https://linkedin.com/in/mkemalgokce"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <SiLinkedin className="w-5 h-5 text-gray-700 dark:text-white" />
+                  </motion.a>
+                  <motion.a
+                    href="mailto:mkemalgokce10@gmail.com"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
                   >
                     <HiMail className="w-5 h-5 text-gray-700 dark:text-white" />
                   </motion.a>
@@ -112,17 +129,17 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors"
                   >
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center">
                         <skill.icon className="w-5 h-5 text-ios-blue" />
                       </div>
                       <h3 className="text-sm font-medium text-gray-900 dark:text-white">
                         {skill.name}
                       </h3>
                     </div>
-                    <div className="h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-white dark:bg-gray-800 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-ios-blue"
                         initial={{ width: 0 }}
@@ -135,134 +152,80 @@ export default function AboutPage() {
               </div>
             </motion.section>
 
-            {/* Skills & Tools */}
+            {/* Experience Section */}
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
-                Skills & Tools
+                Work Experience
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="space-y-8">
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <SiSwift className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Swift & SwiftUI</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Modern iOS development with Swift and SwiftUI</p>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Pinsoft IT Solutions Consulting
+                  </h3>
+                  <p className="text-ios-blue mt-1">iOS Developer | 2024 - Present</p>
+                  <ul className="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>• Develop and maintain iOS applications for various clients</li>
+                    <li>• Work with Swift and other iOS frameworks to implement new features and fix bugs</li>
+                    <li>• Collaborate with cross-functional teams to ensure high-quality code and user experiences</li>
+                    <li>• Follow best practices such as Clean Code and Clean Architecture</li>
+                    <li>• Participate in code reviews and mentoring junior developers</li>
+                  </ul>
                 </div>
+
                 <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <SiXcode className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Xcode</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Advanced Xcode knowledge and debugging</p>
-                </div>
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <SiFirebase className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Firebase</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Backend integration and real-time features</p>
-                </div>
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <SiGit className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Version Control</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Git workflow and collaboration</p>
-                </div>
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <TbDeviceImac className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">UI/UX Design</h3>
-                  <p className="text-gray-600 dark:text-gray-300">iOS design patterns and user experience</p>
-                </div>
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <FaAppStoreIos className="w-8 h-8 text-ios-blue mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">App Store</h3>
-                  <p className="text-gray-600 dark:text-gray-300">App submission and optimization</p>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Arvis Technology
+                  </h3>
+                  <p className="text-ios-blue mt-1">R&D Engineer | 2021-2023</p>
+                  <ul className="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+                    <li>• Worked in the R&D department to design and develop hardware and software solutions</li>
+                    <li>• Assisted in the development of new technologies for communication systems</li>
+                    <li>• Collaborated with the engineering team to create prototypes and test solutions</li>
+                    <li>• Performed data analysis and simulations to evaluate project feasibility</li>
+                  </ul>
                 </div>
               </div>
             </section>
 
-            {/* Experience Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-16"
-            >
+            {/* iOS Development Skills */}
+            <section>
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
-                Experience
+                iOS Development Skills
               </h2>
-              <div className="space-y-6">
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">iOS Developer</h3>
-                    <span className="text-gray-500 dark:text-gray-400">2023 - Present</span>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Developing and maintaining iOS applications using Swift and SwiftUI. 
-                    Working on features like real-time updates, push notifications, and complex UI animations.
-                  </p>
-                  <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                    <li>Implemented clean architecture principles</li>
-                    <li>Integrated Firebase services</li>
-                    <li>Published multiple apps to the App Store</li>
-                  </ul>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Full Stack Developer</h3>
-                    <span className="text-gray-500 dark:text-gray-400">2022 - 2023</span>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Worked on web applications using modern technologies. Gained experience in both frontend and backend development.
-                  </p>
-                  <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                    <li>Built responsive web applications</li>
-                    <li>Developed RESTful APIs</li>
-                    <li>Worked with various databases</li>
-                  </ul>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">Freelance Developer</h3>
-                    <span className="text-gray-500 dark:text-gray-400">2021 - 2022</span>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Worked on various freelance projects, focusing on mobile and web development. 
-                    Gained experience in project management and client communication.
-                  </p>
-                  <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                    <li>Developed custom solutions for clients</li>
-                    <li>Managed project timelines and deliverables</li>
-                    <li>Provided technical consultation</li>
-                  </ul>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Highlights Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
-                What I Do
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {highlights.map((highlight, index) => (
+              <div className="grid md:grid-cols-2 gap-6">
+                {iosSkills.map((category, index) => (
                   <motion.div
-                    key={highlight.title}
+                    key={category.title}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 transition-all group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
-                      <highlight.icon className="w-6 h-6 text-ios-blue" />
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center group-hover:bg-ios-blue transition-colors">
+                        <category.icon className="w-6 h-6 text-ios-blue group-hover:text-white transition-colors" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                        {category.title}
+                      </h3>
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                      {highlight.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      {highlight.description}
-                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {category.items.map((item, itemIndex) => (
+                        <motion.div
+                          key={item}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.2 + (index * 0.1) + (itemIndex * 0.05) }}
+                          className="text-gray-600 dark:text-gray-300 text-sm"
+                        >
+                          • {item}
+                        </motion.div>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>
-            </motion.section>
+            </section>
           </div>
         </div>
       </main>

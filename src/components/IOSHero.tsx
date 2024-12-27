@@ -1,9 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { SiSwift, SiXcode, SiAppstore } from 'react-icons/si'
-import { FaApple } from 'react-icons/fa'
-import Image from 'next/image'
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { SiSwift, SiXcode, SiAppstore } from "react-icons/si"
+import { FaApple } from "react-icons/fa"
 
 const container = {
   hidden: { opacity: 0 },
@@ -47,12 +47,11 @@ export default function IOSHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-6">
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 mb-6">
                 iOS Developer & Swift Enthusiast
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 text-lg mb-8">
-                Building elegant and user-friendly iOS applications with Swift and SwiftUI.
-                Passionate about creating seamless mobile experiences.
+              <p className="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
+                Passionate about crafting elegant iOS applications with clean architecture and exceptional user experiences. Focused on building scalable and maintainable solutions.
               </p>
             </motion.div>
 
@@ -69,7 +68,7 @@ export default function IOSHero() {
                   variants={item}
                   className="flex flex-col items-center gap-2"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-white dark:bg-gray-800 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
                     <tech.icon className="w-6 h-6 text-ios-blue" />
                   </div>
                   <span className="text-sm text-gray-500 dark:text-gray-400">{tech.label}</span>

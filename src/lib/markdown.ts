@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import MarkdownIt from 'markdown-it'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeStringify from 'rehype-stringify'
 
-const md = new MarkdownIt({
-  html: true,
-  breaks: true,
-  linkify: true,
-})
+const postsDirectory = path.join(process.cwd(), 'content/posts')
 
 export interface Post {
   slug: string
@@ -17,46 +17,19 @@ export interface Post {
   content: string
 }
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
-function removeH1Headings(content: string): string {
-  // Remove all # headings that match the title
-  const lines = content.split('\n')
-  const filteredLines = lines.filter(line => !line.trim().startsWith('# '))
-  return filteredLines.join('\n').trim()
-}
-
-const postsDirectory = path.join(process.cwd(), 'content/posts')
-
 export function getAllPosts(): Post[] {
-  if (!fs.existsSync(postsDirectory)) {
-    return []
-  }
-
   const fileNames = fs.readdirSync(postsDirectory)
-  const posts = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '')
-    const fullPath = path.join(postsDirectory, fileName)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
+  const allPosts = fileNames
+    .filter(fileName => fileName.endsWith('.md'))
+    .map(fileName => {
+      const slug = fileName.replace(/\.md$/, '')
+      const post = getPostBySlug(slug)
+      return post
+    })
+    .filter((post): post is Post => post !== null)
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
 
-    return {
-      slug,
-      title: data.title || '',
-      date: formatDate(data.date) || '',
-      excerpt: data.excerpt || '',
-      content,
-    }
-  })
-
-  return posts.sort((a, b) => (a.date > b.date ? -1 : 1))
+  return allPosts
 }
 
 export function getPostBySlug(slug: string): Post | null {
@@ -64,18 +37,24 @@ export function getPostBySlug(slug: string): Post | null {
     const fullPath = path.join(postsDirectory, `${slug}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
-
-    // Remove h1 headings before rendering markdown
-    const cleanContent = removeH1Headings(content)
+    
+    const processedContent = unified()
+      .use(remarkParse)
+      .use(remarkRehype)
+      .use(rehypeHighlight)
+      .use(rehypeStringify)
+      .processSync(content)
+      .toString()
 
     return {
       slug,
       title: data.title,
-      date: formatDate(data.date),
+      date: data.date,
       excerpt: data.excerpt,
-      content: md.render(cleanContent),
+      content: processedContent,
     }
-  } catch {
+  } catch (error) {
+    console.error(`Error reading post ${slug}:`, error)
     return null
   }
 } 
