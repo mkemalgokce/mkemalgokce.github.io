@@ -16,6 +16,16 @@
   }
 }
 
+/* Markdown Image Styles */
+.prose img {
+  border-radius: 1rem;
+  margin: 2rem auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code Block Styles */
 .prose pre {
   background-color: rgb(229 231 235) !important;
   margin: 1.5rem 0;

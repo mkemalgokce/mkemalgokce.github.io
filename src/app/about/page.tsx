@@ -10,12 +10,12 @@ import Header from "@/components/Header"
 import HomeFooter from "@/components/HomeFooter"
 
 const skills = [
-  { name: "Swift", icon: SiSwift, level: 90 },
-  { name: "Xcode", icon: SiXcode, level: 85 },
-  { name: "Git", icon: SiGit, level: 80 },
-  { name: "Docker", icon: SiDocker, level: 75 },
-  { name: "C++", icon: SiCplusplus, level: 85 },
-  { name: "Python", icon: SiPython, level: 70 },
+  { name: "Swift", icon: SiSwift, level: 90, color: "from-orange-500 to-red-500" },
+  { name: "Xcode", icon: SiXcode, level: 85, color: "from-blue-500 to-indigo-500" },
+  { name: "Git", icon: SiGit, level: 80, color: "from-purple-500 to-pink-500" },
+  { name: "Docker", icon: SiDocker, level: 75, color: "from-cyan-500 to-blue-500" },
+  { name: "C++", icon: SiCplusplus, level: 85, color: "from-green-500 to-emerald-500" },
+  { name: "Python", icon: SiPython, level: 70, color: "from-yellow-500 to-orange-500" },
 ]
 
 const iosSkills = [
@@ -78,7 +78,7 @@ export default function AboutPage() {
                   iOS Developer
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                  I am an iOS Developer with 3 years of experience. I started in C++ and worked as a Research & Development engineer before moving to iOS development. I am skilled in Swift and focus on writing clean, well-structured code.
+                As a passionate iOS Developer with 3 years of experience, I thrive on creating scalable and user-friendly applications. I’m always eager to learn, enjoy discussing ideas, and value sharing knowledge with others. Collaboration and teamwork are at the core of my approach, and I’m open to partnerships that drive innovation and impactful solutions.
                 </p>
                 <div className="flex justify-center md:justify-start gap-4">
                   <motion.a
@@ -141,7 +141,7 @@ export default function AboutPage() {
                     </div>
                     <div className="h-1.5 bg-white dark:bg-gray-800 rounded-full overflow-hidden">
                       <motion.div
-                        className="h-full bg-ios-blue"
+                        className={`h-full bg-gradient-to-r ${skill.color}`}
                         initial={{ width: 0 }}
                         animate={{ width: `${skill.level}%` }}
                         transition={{ duration: 1, delay: 0.2 + index * 0.1 }}

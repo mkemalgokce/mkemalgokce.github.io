@@ -4,118 +4,84 @@ date: "2024-02-20"
 excerpt: "Learn how to use method swizzling in iOS to dynamically interchange method implementations at runtime, with practical examples and best practices."
 ---
 
-Method swizzling is a powerful feature of the Objective-C runtime that allows you to interchange the implementations of two methods at runtime. While it should be used with caution, understanding method swizzling can help you solve unique problems in iOS development.
+![Method Swizzling in iOS: A Deep Dive into Runtime Magic GPT](https://img.freepik.com/free-photo/refresh-icon-reload-perforated-paper_53876-31072.jpg)
 
-## What is Method Swizzling?
 
-Method swizzling is a technique that lets you change the implementation of an existing selector at runtime. It's particularly useful when you want to modify or extend the behavior of existing methods without subclassing or changing the original implementation.
+**Method Swizzling** is the process of changing the implementation of an existing method at runtime. It allows developers to dynamically replace or extend the behavior of a method provided by the system or a class, without modifying the source code of the class itself.
 
-## Basic Implementation
+This technique leverages the Objective-C runtime’s ability to dynamically associate new method implementations with selectors, which are essentially unique identifiers for methods.
 
-Here's a basic example of method swizzling:
+**How Does Method Swizzling Work?**
+
+1. **Objective-C Runtime:**
+
+• Method swizzling relies on the Objective-C runtime, specifically the class_replaceMethod and method_exchangeImplementations functions.
+
+• These functions enable the modification of a class’s method dispatch table at runtime.
+
+2. **Replacing Implementations:**
+
+• A method’s original implementation is swapped with a custom implementation, allowing new behavior to be injected when the method is called.
+
+3. **Preserve Original Behavior:**
+
+• The original implementation is typically preserved, so it can still be invoked from the new implementation if needed.
+
+**Example: Swizzling viewDidLoad in UIViewController**
+
+Below is an example of swizzling the viewDidLoad method to inject custom behavior into all view controllers:
+
+**Objective:**
+Add a log message whenever any view controller’s viewDidLoad is called.
+
+**Code:**
 
 ```swift
 import UIKit
 
 extension UIViewController {
-    static func swizzleViewDidLoad() {
-        let originalSelector = #selector(viewDidLoad)
-        let swizzledSelector = #selector(swizzled_viewDidLoad)
-        
-        guard let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector),
-              let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector) else {
-            return
-        }
-        
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    }
-    
-    @objc private func swizzled_viewDidLoad() {
-        swizzled_viewDidLoad() // This actually calls the original viewDidLoad
-        print("View Controller Did Load: \(type(of: self))")
-    }
+    static let swizzleViewDidLoad: Void = {
+        let originalSelector = #selector(UIViewController.viewDidLoad)
+        let swizzledSelector = #selector(UIViewController.swizzled_viewDidLoad)
+
+        guard let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector),
+        let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector) else { return }
+
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+
+    }()
+
+    @objc private func swizzled_viewDidLoad() {
+        // Call the original implementation
+        self.swizzled_viewDidLoad()
+        // Add custom behavior
+        print("\(self) viewDidLoad called")
+    }
+
+}
+// Activate swizzling
+extension AppDelegate {
+    override open var next: UIResponder? {
+        UIViewController.swizzleViewDidLoad
+        return super.next
+    }
 }
 ```
 
-## When to Use Method Swizzling?
+**Key Points in the Example**
 
-Method swizzling is particularly useful in several scenarios:
+1. **method_exchangeImplementations:**
 
-1. **Analytics and Logging**: Track view controller lifecycle events without modifying existing code
-2. **Debugging**: Add debugging information to existing methods
-3. **Feature Toggling**: Dynamically enable/disable features at runtime
-4. **Method Interception**: Add pre/post processing to existing methods
+• Swaps the implementation of the original viewDidLoad with swizzled_viewDidLoad.
 
-## Best Practices
+2. **Preserving Original Behavior:**
 
-When implementing method swizzling, follow these best practices:
+• The swizzled_viewDidLoad calls self.swizzled_viewDidLoad(), which actually points to the original viewDidLoad due to the swizzling.
 
-1. **Swizzle During Load Time**: Perform swizzling when your class is loaded
-```swift
-extension UIViewController {
-    static let swizzleViewDidLoad: Void = {
-        swizzleViewDidLoad()
-    }()
-    
-    override open class func initialize() {
-        guard self === UIViewController.self else { return }
-        _ = swizzleViewDidLoad
-    }
-}
-```
+3. **Activation:**
 
-2. **Prefix Swizzled Methods**: Always prefix your swizzled method names to avoid naming conflicts
-```swift
-@objc private func xyz_swizzled_viewDidLoad()
-```
+• The swizzling is activated early in the app lifecycle by overriding next in the AppDelegate.
 
-3. **Check for Previous Swizzling**: Ensure you don't swizzle the same method twice
-```swift
-static var hasSwizzled = false
+**Conclusion**
 
-static func swizzleIfNeeded() {
-    guard !hasSwizzled else { return }
-    hasSwizzled = true
-    // Perform swizzling
-}
-```
-
-## Practical Example: Adding Analytics
-
-Here's a practical example of using method swizzling to add analytics tracking:
-
-```swift
-extension UIViewController {
-    static func swizzleForAnalytics() {
-        let originalSelector = #selector(viewDidAppear(_:))
-        let swizzledSelector = #selector(analytics_viewDidAppear(_:))
-        
-        guard let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector),
-              let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector) else {
-            return
-        }
-        
-        method_exchangeImplementations(originalMethod, swizzledMethod)
-    }
-    
-    @objc private func analytics_viewDidAppear(_ animated: Bool) {
-        analytics_viewDidAppear(animated) // Calls original implementation
-        Analytics.logScreen(name: String(describing: type(of: self)))
-    }
-}
-```
-
-## Potential Risks and Considerations
-
-While method swizzling is powerful, it comes with risks:
-
-1. **Maintenance**: Swizzled code can be harder to maintain and debug
-2. **iOS Updates**: Apple's implementation changes might break your swizzling
-3. **Multiple Swizzling**: Different parts of your code swizzling the same method can lead to unexpected behavior
-4. **Swift Evolution**: As Swift evolves, reliance on the Objective-C runtime might become problematic
-
-## Conclusion
-
-Method swizzling is a powerful tool in iOS development, but it should be used judiciously. Always consider simpler alternatives first, such as inheritance or protocol extensions. When you do use swizzling, follow best practices and document your implementation thoroughly.
-
-Remember that with great power comes great responsibility – use method swizzling only when the benefits clearly outweigh the potential risks and maintenance costs. 
+Method swizzling is a powerful tool in iOS development that allows runtime modification of method behavior. While it provides great flexibility, it should be used cautiously and only when necessary, as it introduces complexity and potential risks. Always consider alternatives like subclassing or composition before resorting to swizzling.
