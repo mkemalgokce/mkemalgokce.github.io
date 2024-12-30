@@ -8,6 +8,7 @@ import Header from "@/components/Header"
 import IOSHero from "@/components/IOSHero"
 import HomeFooter from "@/components/HomeFooter"
 import { Post } from '@/lib/markdown'
+import { formatDate } from '@/lib/date'
 
 interface ClientHomeProps {
   posts: Post[]
@@ -49,7 +50,7 @@ export default function ClientHome({ posts }: ClientHomeProps) {
                       <div className="flex items-center gap-2 my-2">
                         <div className="w-1 h-1 rounded-full bg-gray-50" />
                         <time className="text-gray-500 dark:text-gray-400 text-sm">
-                          {post.date}
+                          {formatDate(post.date)}
                         </time>
                       </div>
                       <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">

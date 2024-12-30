@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { HiSearch } from "react-icons/hi"
+import { formatDate } from "@/lib/date"
 
 interface BlogListProps {
   posts: Post[]
@@ -59,7 +60,7 @@ export default function BlogList({ posts }: BlogListProps) {
                   <div className="flex items-center gap-2 my-2">
                     <div className="w-1 h-1 rounded-full bg-gray-50" />
                     <time className="text-gray-500 dark:text-gray-400 text-sm">
-                      {post.date}
+                      {formatDate(post.date)}
                     </time>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">

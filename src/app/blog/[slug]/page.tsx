@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import Header from "@/components/Header"
 import HomeFooter from "@/components/HomeFooter"
 import './syntax-light.css'
+import { formatDate } from "@/lib/date"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -64,8 +65,8 @@ export default async function BlogPostPage({ params }: Props) {
               </h1>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 rounded-full bg-gray-50" />
-                <time className="text-gray-600 dark:text-gray-400">
-                  {post.date}
+                <time className="text-gray-600 dark:text-gray-400 text-sm">
+                  {formatDate(post.date)}
                 </time>
               </div>
             </header>

@@ -1,6 +1,6 @@
 ---
 title: "Method Swizzling in iOS: A Deep Dive into Runtime Magic"
-date: "2024-02-20"
+date: "2024-12-29"
 excerpt: "Learn how to use method swizzling in iOS to dynamically interchange method implementations at runtime, with practical examples and best practices."
 ---
 
