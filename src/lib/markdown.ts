@@ -6,7 +6,6 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeStringify from 'rehype-stringify'
-import { visit } from 'unist-util-visit'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 
