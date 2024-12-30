@@ -2,6 +2,7 @@
 title: "Snapshot Testing in iOS: Why and How?"
 date: "2024-11-22"
 excerpt: "Learn how to use snapshot testing in iOS to ensure the visual correctness of your application without relying on time-consuming manual checks or full-blown UI tests."
+coverImage: "https://cdn-images-1.medium.com/max/5200/0*9PPmd-f5nCWJnIIC"
 ---
 
 ![captionless image](https://cdn-images-1.medium.com/max/5200/0*9PPmd-f5nCWJnIIC)

@@ -2,10 +2,8 @@
 title: "Detecting Memory Leaks in Swift: A Practical Guide for XCTest"
 date: "2024-10-15"
 excerpt: "Learn how to detect and prevent memory leaks in Swift applications using XCTest with a custom extension that automates memory leak detection in your test suite."
+coverImage: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7ztJtdMYmBN7Zo4VI4qr8A.jpeg"
 ---
-
-Detecting Memory Leaks in Swift: A Practical Guide for XCTest
-=============================================================
 
 ![captionless image](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*7ztJtdMYmBN7Zo4VI4qr8A.jpeg)
 

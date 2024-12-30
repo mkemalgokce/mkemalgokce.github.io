@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from "next/link"
+import Image from "next/image"
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 import { HiMail } from 'react-icons/hi'
 import Header from "@/components/Header"
@@ -34,7 +35,7 @@ export default function ClientHome({ posts }: ClientHomeProps) {
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-4">
               {posts.map((post) => (
                 <motion.article 
                   key={post.slug} 
@@ -43,19 +44,31 @@ export default function ClientHome({ posts }: ClientHomeProps) {
                   transition={{ duration: 0.2 }}
                 >
                   <Link href={`/blog/${post.slug}`}>
-                    <div className="h-full p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                      <h3 className="text-lg font-medium text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
-                        {post.title}
-                      </h3>
-                      <div className="flex items-center gap-2 my-2">
-                        <div className="w-1 h-1 rounded-full bg-gray-50" />
-                        <time className="text-gray-500 dark:text-gray-400 text-sm">
-                          {formatDate(post.date)}
-                        </time>
+                    <div className="h-full p-4 rounded-xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex gap-4">
+                      {post.coverImage && (
+                        <div className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden">
+                          <Image
+                            src={post.coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-medium text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
+                          {post.title}
+                        </h3>
+                        <div className="flex items-center gap-2 my-1">
+                          <div className="w-1 h-1 rounded-full bg-gray-50" />
+                          <time className="text-gray-500 dark:text-gray-400 text-xs">
+                            {formatDate(post.date)}
+                          </time>
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
+                          {post.excerpt}
+                        </p>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
-                        {post.excerpt}
-                      </p>
                     </div>
                   </Link>
                 </motion.article>

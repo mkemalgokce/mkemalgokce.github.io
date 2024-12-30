@@ -6,8 +6,15 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeStringify from 'rehype-stringify'
+import { visit } from 'unist-util-visit'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
+
+function extractFirstImage(content: string): string | null {
+  const imageRegex = /!\[.*?\]\((.*?)\)/
+  const match = content.match(imageRegex)
+  return match ? match[1] : null
+}
 
 export interface Post {
   slug: string
@@ -15,6 +22,7 @@ export interface Post {
   date: string
   excerpt: string
   content: string
+  coverImage: string | null
 }
 
 export function getAllPosts(): Post[] {
@@ -52,6 +60,7 @@ export function getPostBySlug(slug: string): Post | null {
       date: data.date,
       excerpt: data.excerpt,
       content: processedContent,
+      coverImage: data.coverImage || extractFirstImage(content)
     }
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error)

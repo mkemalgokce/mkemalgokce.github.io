@@ -2,6 +2,7 @@
 
 import { Post } from "@/lib/markdown"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { HiSearch } from "react-icons/hi"
@@ -44,7 +45,7 @@ export default function BlogList({ posts }: BlogListProps) {
         </div>
 
         {/* Blog Posts */}
-        <div className="grid gap-6">
+        <div className="grid gap-4">
           {filteredPosts.map((post) => (
             <motion.article
               key={post.slug}
@@ -53,19 +54,31 @@ export default function BlogList({ posts }: BlogListProps) {
               className="group"
             >
               <Link href={`/blog/${post.slug}`}>
-                <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
-                    {post.title}
-                  </h2>
-                  <div className="flex items-center gap-2 my-2">
-                    <div className="w-1 h-1 rounded-full bg-gray-50" />
-                    <time className="text-gray-500 dark:text-gray-400 text-sm">
-                      {formatDate(post.date)}
-                    </time>
+                <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors flex gap-4">
+                  {post.coverImage && (
+                    <div className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden">
+                      <Image
+                        src={post.coverImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
+                      {post.title}
+                    </h2>
+                    <div className="flex items-center gap-2 my-1">
+                      <div className="w-1 h-1 rounded-full bg-gray-50" />
+                      <time className="text-gray-500 dark:text-gray-400 text-xs">
+                        {formatDate(post.date)}
+                      </time>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
+                      {post.excerpt}
+                    </p>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {post.excerpt}
-                  </p>
                 </div>
               </Link>
             </motion.article>

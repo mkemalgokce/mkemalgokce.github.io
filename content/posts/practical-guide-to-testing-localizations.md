@@ -2,6 +2,7 @@
 title: "A Practical Guide To Testing Localizations in iOS with XCTest"
 date: "2024-11-12"
 excerpt: "Learn how to automate localization testing in iOS using XCTest to ensure that every key is correctly translated and present in your localization files."
+coverImage: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*W2rzDCpOXdSE0emYrMqrrg.png"
 ---
 
 ![captionless image](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*W2rzDCpOXdSE0emYrMqrrg.png)
