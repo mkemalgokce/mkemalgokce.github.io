@@ -2,7 +2,7 @@
 title: "Building Command-Line Tools in Swift: Part 1 - Introduction and Key Concepts"
 date: "2025-01-06"
 excerpt: "Learn how to build command-line tools in Swift, exploring key concepts, libraries, and best practices."
-cover_image: "https://images.unsplash.com/photo-1501516069922-a9982bd6f3bd?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+cover_image: "https://cdn-images-1.medium.com/v2/resize:fit:1600/0*CjeY4uMJqJ4cYsfo"
 ---
 
 **Building Command-Line Tools in Swift: Part 1 - Introduction and Key Concepts**
