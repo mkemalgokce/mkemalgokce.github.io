@@ -2,10 +2,11 @@
 title: "Building Command-Line Tools in Swift: Part 1 - Introduction and Key Concepts"
 date: "2025-01-06"
 excerpt: "Learn how to build command-line tools in Swift, exploring key concepts, libraries, and best practices."
-cover_image: "https://i.ibb.co/Xy3LmVG/image.jpg"
+coverImage: "https://img.freepik.com/free-photo/knives-tools-electrical-maintenance_23-2147743046.jpg?t=st=1736174989~exp=1736178589~hmac=09d05fdd10451e2f59c2630ffe6abc1775dbbe031b797e285bb7ed6535dc932c&w=2000"
 ---
 
-**Building Command-Line Tools in Swift: Part 1 - Introduction and Key Concepts**
+![captionless image](https://images.unsplash.com/photo-1453806839674-d1a9087ca1ed?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
+
 
 ### Why Build Command-Line Tools?
 Command-line tools (CLI) provide a text-based interface for interacting with software, allowing users to input commands and receive outputs. These tools are widely used in development workflows for automation, scripting, and task optimization.
