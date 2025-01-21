@@ -42,12 +42,7 @@ Features
 
 ![captionless image](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*Xjgzmy7akg6gIijNc5S2Cw.png)
 
-[GitHub — mkemalgokce/AssetOrganizer: A command-line tool for analyzing and managing unused assets…
---------------------------------------------------------------------------------------------------
-
-### A command-line tool for analyzing and managing unused assets in iOS/macOS projects — mkemalgokce/AssetOrganizer
-
-github.com](https://github.com/mkemalgokce/AssetOrganizer?source=post_page-----95c47ec8f932--------------------------------)
+You should access repository on: [AssetOrganizer Github](https://github.com/mkemalgokce/AssetOrganizer)
 
 Refining the CLI App for Real-World Use
 =======================================
