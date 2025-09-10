@@ -13,7 +13,7 @@ export default function Footer() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://github.com/yourusername"
+                href="https://github.com/mkemalgokce"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ios-gray-600 dark:text-ios-gray-400 hover:text-ios-blue dark:hover:text-ios-blue transition-colors"
@@ -23,7 +23,7 @@ export default function Footer() {
               <motion.a
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/yourusername"
+                href="https://linkedin.com/in/mkemalgokce"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ios-gray-600 dark:text-ios-gray-400 hover:text-ios-blue dark:hover:text-ios-blue transition-colors"

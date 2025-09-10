@@ -1,5 +1,6 @@
 import { getPostBySlug, getAllPosts } from "@/lib/markdown"
 import { Metadata } from "next"
+import Script from "next/script"
 import Header from "@/components/Header"
 import HomeFooter from "@/components/HomeFooter"
 import './syntax-light.css'
@@ -28,9 +29,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
+  const url = `https://mkemalgokce.github.io/blog/${post.slug}`
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url,
+      type: 'article',
+      images: post.coverImage ? [{ url: post.coverImage, alt: post.title }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: post.coverImage ? [post.coverImage] : undefined,
+    },
   }
 }
 
@@ -55,6 +71,21 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const postUrl = `https://mkemalgokce.github.io/blog/${slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: new Date(post.date).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: 'Mustafa Kemal GÖKÇE',
+      alternateName: 'Mustafa Kemal GOKCE',
+      url: 'https://mkemalgokce.github.io',
+    },
+    mainEntityOfPage: postUrl,
+    image: post.coverImage ? [post.coverImage] : undefined,
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117]">
@@ -62,6 +93,7 @@ export default async function BlogPostPage({ params }: Props) {
       <main className="flex-1">
         <article className="container mx-auto px-4 py-16">
           <div className="max-w-3xl mx-auto">
+            <Script id="ld-json-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
             <header className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                 {post.title}

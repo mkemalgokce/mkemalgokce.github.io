@@ -47,11 +47,11 @@ export default function IOSHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 mb-6">
-                iOS Developer & Swift Enthusiast
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-gray-900 dark:text-white mb-6">
+                Mustafa Kemal GÖKÇE — iOS Developer
               </h1>
               <p className="text-gray-600 dark:text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
-                Passionate about crafting elegant iOS applications with clean architecture and exceptional user experiences. Focused on building scalable and maintainable solutions.
+                I design and build elegant iOS apps with Swift, clean architecture, and exceptional user experiences.
               </p>
             </motion.div>
 
