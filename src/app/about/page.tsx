@@ -78,7 +78,7 @@ export default function AboutPage() {
                   iOS Developer
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                As a passionate iOS Developer with 4-5 years of experience, I thrive on creating scalable and user-friendly applications. I'm always eager to learn, enjoy discussing ideas, and value sharing knowledge with others. Collaboration and teamwork are at the core of my approach, and I'm open to partnerships that drive innovation and impactful solutions.
+                As a passionate iOS Developer with 4-5 years of experience, I thrive on creating scalable and user-friendly applications. I&apos;m always eager to learn, enjoy discussing ideas, and value sharing knowledge with others. Collaboration and teamwork are at the core of my approach, and I&apos;m open to partnerships that drive innovation and impactful solutions.
                 </p>
                 <div className="flex justify-center md:justify-start gap-4">
                   <motion.a
