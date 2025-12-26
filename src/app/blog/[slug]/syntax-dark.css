@@ -1,0 +1,68 @@
+
+[data-theme='dark'] .prose pre {
+    background-color: #16221d !important;
+    border-color: #30363d !important;
+}
+
+[data-theme='dark'].prose code {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+}
+
+[data-theme='dark'].hljs {
+    color: #c9d1d9 !important;
+    background: #161b22 !important;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+    color: #ff7b72 !important;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+    color: #d2a8ff !important;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+    color: #79c0ff !important;
+}
+
+.hljs-string,
+.hljs-regexp {
+    color: #a5d6ff !important;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+    color: #ffa657 !important;
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+    color: #8b949e !important;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+    color: #7ee787 !important;
+}
