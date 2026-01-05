@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["Q9ARVAPAG3.com.sayar.app"],
+        "components": [
+          {
+            "/": "/sayar/*"
+          }
+        ]
+      }
+    ]
+  }
+}
