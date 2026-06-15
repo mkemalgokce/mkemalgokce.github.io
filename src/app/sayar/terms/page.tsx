@@ -1,163 +1,152 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { SayarNav, SayarFooter, SAYAR_EMAIL } from "../_components/SiteChrome";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Sayar",
+  description: "The terms that govern your use of the Sayar expense tracking app.",
+};
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/sayar" className="text-xl font-bold tracking-tight">
-            Sayar
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/sayar/privacy" className="text-sm text-slate-400 hover:text-white transition-colors">
-              Privacy
-            </Link>
-            <Link href="/sayar/terms" className="text-sm text-white font-medium">
-              Terms
-            </Link>
-            <a
-              href="https://apps.apple.com/app/sayar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-slate-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-slate-100 transition-colors"
-            >
-              Download
-            </a>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-white text-slate-900 antialiased">
+      <SayarNav active="terms" />
 
-      <main className="pt-32 pb-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms of Service</h1>
-          <p className="text-slate-400 mb-12">Last updated: January 2025</p>
+      <main className="px-6 pt-32 pb-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Legal</p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            Terms of Service
+          </h1>
+          <p className="mt-4 text-slate-400">Last updated: June 2026</p>
 
-          <div className="space-y-10 text-slate-300 leading-relaxed">
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Agreement to Terms</h2>
+          <div className="mt-12 space-y-10 leading-relaxed text-slate-600">
+            <Section title="Agreement to Terms">
               <p>
-                By downloading, installing, or using Sayar, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.
+                By downloading, installing or using Sayar, you agree to these Terms of Service. If
+                you do not agree, please do not use the app.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Description of Service</h2>
+            <Section title="Description of Service">
               <p>
-                Sayar is a personal expense tracking application designed to help you record, categorize, and analyze your spending. The app stores all data locally on your device and does not require an internet connection to function.
+                Sayar is a personal expense and income tracking app that helps you record,
+                categorise and analyse your spending. It stores data locally on your device and
+                works without an internet connection.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">License</h2>
+            <Section title="License">
               <p className="mb-4">
-                We grant you a limited, non-exclusive, non-transferable, revocable license to use Sayar for your personal, non-commercial purposes. You may not:
+                You are granted a limited, non-exclusive, non-transferable, revocable license to use
+                Sayar for personal, non-commercial purposes. You may not:
               </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400">
-                <li>Copy, modify, or distribute the application</li>
-                <li>Reverse engineer or attempt to extract the source code</li>
-                <li>Use the app for any illegal purpose</li>
-                <li>Sublicense or transfer your rights to use the app</li>
-              </ul>
-            </section>
+              <List
+                items={[
+                  "Copy, modify or distribute the application",
+                  "Reverse engineer or attempt to extract the source code",
+                  "Use the app for any illegal purpose",
+                  "Sublicense or transfer your rights to use the app",
+                ]}
+              />
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">User Responsibilities</h2>
-              <p className="mb-4">
-                You are responsible for:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400">
-                <li>Maintaining the security of your device</li>
-                <li>Backing up your data regularly</li>
-                <li>The accuracy of the expense data you enter</li>
-                <li>Any decisions you make based on the app data</li>
-              </ul>
-            </section>
+            <Section title="User Responsibilities">
+              <p className="mb-4">You are responsible for:</p>
+              <List
+                items={[
+                  "Maintaining the security of your device",
+                  "Backing up your data regularly",
+                  "The accuracy of the data you enter",
+                  "Any decisions you make based on the app's data",
+                ]}
+              />
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Disclaimer of Warranties</h2>
+            <Section title="Disclaimer of Warranties">
               <p>
-                Sayar is provided as is without any warranties, express or implied. We do not guarantee that the app will be error-free, uninterrupted, or meet your specific requirements. The app is intended for personal expense tracking and should not be used as a substitute for professional financial advice.
+                Sayar is provided &ldquo;as is&rdquo; without warranties of any kind, express or
+                implied. We do not guarantee the app will be error-free, uninterrupted or fit for a
+                specific purpose. It is intended for personal tracking and is not a substitute for
+                professional financial advice.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Limitation of Liability</h2>
+            <Section title="Limitation of Liability">
               <p>
-                To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of data, profits, or business opportunities, arising from your use of Sayar.
+                To the maximum extent permitted by law, we are not liable for any indirect,
+                incidental, special, consequential or punitive damages, including loss of data,
+                profits or business opportunities, arising from your use of Sayar.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Data Loss</h2>
+            <Section title="Data Loss">
               <p>
-                We are not responsible for any loss of data that may occur due to device failure, software updates, or user error. We recommend regularly backing up your device to prevent data loss.
+                We are not responsible for data loss caused by device failure, software updates or
+                user error. Regularly backing up your device (and using iCloud sync) is recommended.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">App Store Terms</h2>
+            <Section title="App Store Terms">
               <p>
-                Your use of Sayar is also subject to the terms and conditions of the Apple App Store. In case of any conflict between these terms and the App Store terms, the App Store terms shall prevail.
+                Your use of Sayar is also subject to the Apple App Store terms and conditions. In
+                case of conflict, the App Store terms prevail.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Changes to Terms</h2>
+            <Section title="Changes to Terms">
               <p>
-                We reserve the right to modify these Terms of Service at any time. We will notify you of significant changes by updating the date at the top of this page. Your continued use of the app after changes constitutes acceptance of the new terms.
+                These terms may be modified at any time. Significant changes will be reflected by
+                updating the date at the top of this page. Continued use after changes constitutes
+                acceptance of the new terms.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Termination</h2>
+            <Section title="Termination">
               <p>
-                We reserve the right to terminate your access to the app at any time for any reason. You may terminate your use of the app at any time by uninstalling it from your device.
+                Access to the app may be terminated at any time for any reason. You may stop using
+                the app at any time by uninstalling it from your device.
               </p>
-            </section>
+            </Section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
+            <Section title="Contact">
               <p>
-                If you have any questions about these Terms of Service, please contact us at{" "}
-                <a href="mailto:support@sayar.app" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                  support@sayar.app
+                Questions about these Terms? Email{" "}
+                <a
+                  href={`mailto:${SAYAR_EMAIL}`}
+                  className="font-medium text-blue-600 underline-offset-2 hover:underline"
+                >
+                  {SAYAR_EMAIL}
                 </a>
+                .
               </p>
-            </section>
+            </Section>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-              <p className="text-xl font-bold mb-1">Sayar</p>
-              <p className="text-slate-500 text-sm">Simple expense tracking</p>
-            </div>
-
-            <div className="flex items-center gap-8">
-              <Link href="/sayar/privacy" className="text-slate-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/sayar/terms" className="text-white text-sm">
-                Terms of Service
-              </Link>
-              <a href="mailto:support@sayar.app" className="text-slate-400 hover:text-white text-sm transition-colors">
-                Contact
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-8 border-t border-slate-800/50 text-center">
-            <p className="text-slate-500 text-sm">
-              &copy; {new Date().getFullYear()} Sayar. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SayarFooter />
     </div>
+  );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section>
+      <h2 className="mb-3 text-2xl font-semibold text-slate-900">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function List({ items }: { items: string[] }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" aria-hidden />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
