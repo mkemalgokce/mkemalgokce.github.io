@@ -6,7 +6,7 @@
         "appIDs": [
           "Q9ARVAPAG3.com.mkg.sayar.dev",
           "Q9ARVAPAG3.com.mkg.sayar.uat",
-          "Q9ARVAPAG3.com.mkg.sayar"
+          "Q9ARVAPAG3.com.mkg.sayar.prod"
         ],
         "paths": ["*"]
       }
