@@ -202,107 +202,182 @@ function PhoneMockup() {
       initial={reduce ? false : { opacity: 0, y: 40, rotateX: 8 }}
       animate={{ opacity: 1, y: 0, rotateX: 0 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-      className="relative w-[300px] [perspective:1200px] sm:w-[330px]"
+      className="relative mx-auto w-[300px] [perspective:1200px] sm:w-[320px]"
     >
-      {/* device */}
-      <div className="relative rounded-[2.75rem] border border-slate-200 bg-slate-900 p-[10px] shadow-2xl shadow-slate-900/25">
-        <div className="overflow-hidden rounded-[2.25rem] bg-white">
-          {/* notch */}
-          <div className="relative flex h-8 items-center justify-center bg-white">
-            <div className="h-[18px] w-[100px] rounded-full bg-slate-900" />
+      {/* real iPhone 17 Pro frame (EldoraUI shadcn SVG) */}
+      <Iphone17ProFrame className="block w-full drop-shadow-[0_30px_55px_rgba(15,23,42,0.4)]" />
+
+      {/* live screen, positioned in the SVG screen cutout (% of the 200×400 viewBox) */}
+      <div
+        className="absolute overflow-hidden bg-white"
+        style={{
+          left: "7.04%",
+          top: "3.2%",
+          width: "85.99%",
+          height: "93.59%",
+          borderRadius: "12.3%/6.15%",
+        }}
+      >
+        {/* status bar */}
+        <div className="flex h-[7.7%] items-center justify-between px-[9%] text-slate-900">
+          <span className="text-[13px] font-semibold tabular-nums tracking-tight">19:07</span>
+          <span className="flex items-center gap-1.5">
+            <WifiIcon />
+            <BatteryIcon />
+          </span>
+        </div>
+
+        <div className="space-y-3 px-[6%] pb-2">
+          <h3 className="text-[22px] font-bold tracking-tight">Home</h3>
+
+          {/* balance */}
+          <div className="rounded-2xl bg-[#EEF1F6] px-4 py-3">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+              Balance
+            </p>
+            <p className="mt-0.5 text-[26px] font-bold leading-tight tracking-tight tabular-nums">
+              ₺ 5,835.00
+            </p>
           </div>
 
-          <div className="space-y-4 px-5 pb-7 pt-1">
-            <h3 className="text-2xl font-bold tracking-tight">Home</h3>
+          {/* income / expense */}
+          <div className="grid grid-cols-2 gap-2.5">
+            <StatPill tint="green" icon={<FiArrowDownLeft />} label="Income" value="+₺ 5,000.00" />
+            <StatPill tint="red" icon={<FiArrowUpRight />} label="Expense" value="−₺ 165.00" />
+          </div>
 
-            {/* balance */}
-            <div className="rounded-2xl bg-[#EEF1F6] px-5 py-4">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                Balance
-              </p>
-              <p className="mt-0.5 text-3xl font-bold tracking-tight tabular-nums">₺ 5,835.00</p>
-            </div>
-
-            {/* income / expense */}
-            <div className="grid grid-cols-2 gap-3">
-              <StatPill
-                tint="green"
-                icon={<FiArrowDownLeft />}
-                label="Income"
-                value="+₺ 5,000.00"
-              />
-              <StatPill tint="red" icon={<FiArrowUpRight />} label="Expense" value="−₺ 165.00" />
-            </div>
-
-            {/* AI input */}
-            <div>
-              <div
-                className={`flex items-center gap-2.5 rounded-2xl border bg-[#F4F6FA] py-2 pl-2 pr-2 transition-colors duration-300 ${
-                  done ? "border-blue-300 ring-2 ring-blue-200" : "border-transparent"
+          {/* AI input */}
+          <div>
+            <div
+              className={`flex items-center gap-2 rounded-2xl border bg-[#F4F6FA] p-1.5 transition-colors duration-300 ${
+                done ? "border-blue-300 ring-2 ring-blue-200" : "border-transparent"
+              }`}
+            >
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-blue-600 text-white">
+                <HiSparkles className="h-4 w-4" aria-hidden />
+              </span>
+              <span className="flex-1 truncate text-[14px] font-medium text-slate-700">
+                {typed || <span className="text-slate-400">−120 market</span>}
+                {!done && (
+                  <span className="ml-0.5 inline-block h-4 w-[2px] -translate-y-[1px] animate-pulse bg-blue-500 align-middle" />
+                )}
+              </span>
+              <motion.span
+                key={done ? "check" : "send"}
+                initial={reduce ? false : { scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 18 }}
+                className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl text-white ${
+                  done ? "bg-blue-600" : "bg-blue-200"
                 }`}
               >
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-blue-600 text-white">
-                  <HiSparkles className="h-4 w-4" aria-hidden />
-                </span>
-                <span className="flex-1 truncate text-[15px] font-medium text-slate-700">
-                  {typed || <span className="text-slate-400">−120 market</span>}
-                  {!done && (
-                    <span className="ml-0.5 inline-block h-4 w-[2px] -translate-y-[1px] animate-pulse bg-blue-500 align-middle" />
-                  )}
-                </span>
-                <motion.span
-                  key={done ? "check" : "send"}
-                  initial={reduce ? false : { scale: 0.6, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl text-white ${
-                    done ? "bg-blue-600" : "bg-blue-200"
-                  }`}
-                >
-                  {done ? <FiCheck className="h-4 w-4" /> : <FiArrowUp className="h-4 w-4" />}
-                </motion.span>
-              </div>
-              <p className="mt-2 px-1 text-[13px] text-slate-400">
-                Type an amount and a note to record it
-              </p>
+                {done ? <FiCheck className="h-4 w-4" /> : <FiArrowUp className="h-4 w-4" />}
+              </motion.span>
             </div>
+            <p className="mt-1.5 px-1 text-[12px] text-slate-400">
+              Type an amount and a note to record it
+            </p>
+          </div>
 
-            {/* recent */}
-            <div>
-              <div className="mb-2 flex items-center justify-between px-1">
-                <h4 className="text-base font-bold">Recent</h4>
-                <span className="text-sm font-semibold text-blue-600">See all</span>
-              </div>
-              <div className="overflow-hidden rounded-2xl bg-[#F4F6FA]">
-                <Txn
-                  icon={<FiDollarSign />}
-                  tint="green"
-                  title="Salary"
-                  meta="Salary · Jan 10"
-                  amount="+₺ 5,000.00"
-                  positive
-                />
-                <Txn
-                  icon={<FiShoppingCart />}
-                  tint="red"
-                  title="market"
-                  meta="Market · Jan 9"
-                  amount="−₺ 120.00"
-                />
-                <Txn
-                  icon={<FiShoppingCart />}
-                  tint="red"
-                  title="coffee"
-                  meta="Market · Jan 8"
-                  amount="−₺ 45.00"
-                  last
-                />
-              </div>
+          {/* recent */}
+          <div>
+            <div className="mb-1.5 flex items-center justify-between px-1">
+              <h4 className="text-[15px] font-bold">Recent</h4>
+              <span className="text-[13px] font-semibold text-blue-600">See all</span>
+            </div>
+            <div className="overflow-hidden rounded-2xl bg-[#F4F6FA]">
+              <Txn
+                icon={<FiDollarSign />}
+                tint="green"
+                title="Salary"
+                meta="Salary · Jan 10"
+                amount="+₺ 5,000.00"
+                positive
+              />
+              <Txn
+                icon={<FiShoppingCart />}
+                tint="red"
+                title="market"
+                meta="Market · Jan 9"
+                amount="−₺ 120.00"
+              />
+              <Txn
+                icon={<FiShoppingCart />}
+                tint="red"
+                title="coffee"
+                meta="Market · Jan 8"
+                amount="−₺ 45.00"
+                last
+              />
             </div>
           </div>
         </div>
+
+        {/* home indicator */}
+        <div className="absolute inset-x-0 bottom-1.5 flex justify-center">
+          <div className="h-[5px] w-[32%] rounded-full bg-slate-900/80" />
+        </div>
+      </div>
+
+      {/* dynamic island, floating over the screen */}
+      <div
+        aria-hidden
+        className="absolute left-1/2 flex -translate-x-1/2 items-center justify-end rounded-full bg-black pr-2"
+        style={{ top: "4.48%", width: "27.45%", height: "3.99%" }}
+      >
+        <span className="h-[6px] w-[6px] rounded-full bg-[#0b1030] ring-1 ring-white/10" />
       </div>
     </motion.div>
+  );
+}
+
+function Iphone17ProFrame({ className }: { className?: string }) {
+  // iPhone 17 Pro device frame (EldoraUI / shadcn registry). Screen cutout is
+  // overlaid with live HTML, so only the body + bezel paths are kept here.
+  return (
+    <svg
+      viewBox="0 0 200 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <path
+        fill="#303333"
+        d="M196.11,128.09c0-.25-.2-.45-.45-.45-.11.04-.37.03-.69,0V36.69c0-17.84-14.46-32.31-32.31-32.31H37.48C19.63,4.39,5.17,18.85,5.17,36.69v48.99c-.3.02-.55.03-.66-.02-.25,0-.45.2-.45.45,0,0,0,17.29,0,17.29-.03.41.5.49,1.11.48v13.63c-.61,0-1.14.08-1.11.48,0,0,0,28.54,0,28.54-.03.42.5.49,1.11.48v7.95c-.61,0-1.14.08-1.11.48,0,0,0,28.54,0,28.54-.03.42.5.49,1.11.48v178.86c0,17.84,14.46,32.31,32.31,32.31h125.2c17.84,0,32.31-14.46,32.31-32.31v-188.87c.32-.02.58-.03.69.04,1.26.1.03-45.94.45-46.38Z"
+      />
+      <path
+        fill="#000000"
+        d="M186.07,362.63c0,13.56-10.99,24.56-24.56,24.56H38.64c-13.56,0-24.56-10.99-24.56-24.56V37.37c0-13.56,10.99-24.56,24.56-24.56h122.87c13.56,0,24.56,10.99,24.56,24.56v325.26Z"
+      />
+      <path
+        fill="#000000"
+        d="M161.38,7.29H38.78c-16.54,0-29.95,13.41-29.95,29.95v325.52c0,16.54,13.41,29.95,29.95,29.95h122.6c16.54,0,29.95-13.41,29.95-29.95V37.24c0-16.54-13.41-29.95-29.95-29.95ZM186.07,362.57c0,13.6-11.02,24.62-24.62,24.62H38.7c-13.6,0-24.62-11.02-24.62-24.62V37.43c0-13.6,11.02-24.62,24.62-24.62h122.75c13.6,0,24.62,11.02,24.62,24.62v325.14Z"
+      />
+    </svg>
+  );
+}
+
+function WifiIcon() {
+  // iOS Wi-Fi: solid three-arc fan
+  return (
+    <svg width="17" height="12" viewBox="0 0 16 12" fill="currentColor" aria-hidden>
+      <path d="M8 1.6c2.86 0 5.46 1.08 7.43 2.85a.6.6 0 0 1 .03.86l-.83.86a.58.58 0 0 1-.82.02A9.2 9.2 0 0 0 8 3.86a9.2 9.2 0 0 0-5.84 2.19.58.58 0 0 1-.82-.02l-.83-.86a.6.6 0 0 1 .03-.86A11.16 11.16 0 0 1 8 1.6Z" />
+      <path d="M8 5.5c1.74 0 3.33.66 4.53 1.74a.58.58 0 0 1 .03.84l-.9.92a.57.57 0 0 1-.8.02A4.1 4.1 0 0 0 8 7.9a4.1 4.1 0 0 0-2.86 1.12.57.57 0 0 1-.8-.02l-.9-.92a.58.58 0 0 1 .03-.84A6.66 6.66 0 0 1 8 5.5Z" />
+      <path d="M8 9.2c.74 0 1.4.32 1.85.84.2.23.18.57-.03.78l-1.4 1.4a.6.6 0 0 1-.84 0l-1.4-1.4a.54.54 0 0 1-.03-.78A2.44 2.44 0 0 1 8 9.2Z" />
+    </svg>
+  );
+}
+
+function BatteryIcon() {
+  // iOS battery: rounded shell + ~85% fill + cap nub
+  return (
+    <span className="flex items-center" aria-hidden>
+      <span className="flex h-[11.5px] w-[24px] items-center rounded-[3.5px] border-[1.2px] border-slate-900/35 p-[1.5px]">
+        <span className="h-full w-[85%] rounded-[1.5px] bg-slate-900" />
+      </span>
+      <span className="ml-[1px] h-[4px] w-[1.5px] rounded-r-[1.5px] bg-slate-900/35" />
+    </span>
   );
 }
 
