@@ -6,7 +6,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { SiGithub, SiSwift } from "react-icons/si";
 import ProjectCard from "@/components/ProjectCard";
 import { Reveal, StaggerGroup, FadeItem, EASE } from "@/components/ui/motion";
-import { featuredProjects, moreProjects } from "@/lib/projects";
+import { featuredProjects, moreProjects, workProjects } from "@/lib/projects";
 import type { ProjectCategory } from "@/lib/projects";
 import { site } from "@/lib/site";
 
@@ -47,19 +47,47 @@ export default function ProjectsView() {
             Things I build
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
-            iOS apps, developer tools, and open-source libraries &mdash; crafted with Swift and care.
+            Enterprise iOS work, plus personal apps, developer tools, and open-source libraries
+            &mdash; crafted with Swift and care.
           </p>
         </Reveal>
+      </section>
+
+      {/* Work — closed-source / enterprise */}
+      <section className="px-4 pb-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <Eyebrow>Work</Eyebrow>
+            <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
+              Professional projects
+            </h2>
+            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fg-muted">
+              Enterprise iOS apps and SDKs I&rsquo;ve shipped at Pinsoft and Arvis. Closed-source
+              &mdash; the code stays with the client, but here&rsquo;s what I built.
+            </p>
+          </Reveal>
+
+          <StaggerGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {workProjects.map((p) => (
+              <FadeItem key={p.id} className="h-full">
+                <ProjectCard project={p} />
+              </FadeItem>
+            ))}
+          </StaggerGroup>
+        </div>
       </section>
 
       {/* Featured + filter */}
       <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <Eyebrow>Selected work</Eyebrow>
+            <Eyebrow>Personal</Eyebrow>
             <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
-              Featured projects
+              Personal projects
             </h2>
+            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fg-muted">
+              Apps and tools I build on my own &mdash; most are open-source. Filter by what you&rsquo;re after.
+            </p>
           </Reveal>
 
           <Reveal delay={0.05} className="mt-8">

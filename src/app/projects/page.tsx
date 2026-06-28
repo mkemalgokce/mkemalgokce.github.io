@@ -3,7 +3,7 @@ import Aurora from "@/components/Aurora";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectsView from "@/components/ProjectsView";
-import { featuredProjects } from "@/lib/projects";
+import { featuredProjects, workProjects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -17,12 +17,12 @@ export const metadata: Metadata = {
       "iOS apps, developer tools and open-source libraries built with Swift and SwiftUI.",
     url: "https://mkemalgokce.github.io/projects",
     type: "website",
-    images: [{ url: "/avatar.jpg", width: 460, height: 460, alt: "Mustafa Kemal GÖKÇE" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Mustafa Kemal GÖKÇE" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Projects | Mustafa Kemal GÖKÇE",
-    images: ["/avatar.jpg"],
+    images: ["/og.png"],
   },
 };
 
@@ -32,12 +32,16 @@ export default function ProjectsPage() {
     "@type": "CollectionPage",
     name: "Projects",
     url: `${site.url}/projects`,
-    about: featuredProjects.map((p) => ({
+    about: [...workProjects, ...featuredProjects].map((p) => ({
       "@type": "SoftwareApplication",
       name: p.name,
       applicationCategory: p.category,
       description: p.tagline,
-      url: p.href.startsWith("/") ? `${site.url}${p.href}` : p.href,
+      url: p.href
+        ? p.href.startsWith("/")
+          ? `${site.url}${p.href}`
+          : p.href
+        : `${site.url}/projects`,
     })),
   };
 

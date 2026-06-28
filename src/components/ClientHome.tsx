@@ -11,7 +11,7 @@ import LiquidHero from "@/components/LiquidHero";
 import ProjectCard from "@/components/ProjectCard";
 import PostCard from "@/components/PostCard";
 import { Reveal, StaggerGroup, FadeItem } from "@/components/ui/motion";
-import { featuredProjects } from "@/lib/projects";
+import { featuredProjects, workProjects } from "@/lib/projects";
 import { site } from "@/lib/site";
 import type { Post } from "@/lib/markdown";
 
@@ -42,7 +42,7 @@ export default function ClientHome({ posts }: { posts: Post[] }) {
 }
 
 function FeaturedProjects() {
-  const items = featuredProjects.slice(0, 3);
+  const items = [...workProjects.slice(0, 2), ...featuredProjects.slice(0, 4)];
   return (
     <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-6xl">
@@ -52,6 +52,9 @@ function FeaturedProjects() {
             <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
               Things I&rsquo;ve shipped &amp; built
             </h2>
+            <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-fg-muted">
+              Enterprise iOS at Pinsoft &amp; Arvis, plus personal apps and open-source tools.
+            </p>
           </div>
           <Link
             href="/projects"

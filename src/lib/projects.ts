@@ -2,6 +2,7 @@ export type ProjectAccent = "blue" | "violet" | "emerald" | "amber" | "rose" | "
 
 export type ProjectCategory =
   | "iOS App"
+  | "iOS SDK"
   | "Developer Tool"
   | "CLI Tool"
   | "Open-Source Library"
@@ -17,14 +18,78 @@ export interface Project {
   accent: ProjectAccent;
   year: string;
   stars?: number;
-  /** Primary link — internal route or external repo. */
-  href: string;
+  /** Primary link — internal route or external repo. Omitted for closed-source work. */
+  href?: string;
   /** Optional App Store link. */
   appStore?: string;
   /** Optional GitHub repo when href is internal. */
   repo?: string;
+  /** Company the work was built at (work projects only). */
+  company?: string;
+  /** Closed-source / enterprise work — rendered without a link. */
+  closedSource?: boolean;
   featured: boolean;
 }
+
+/** Professional, closed-source work — product names generalized; code can't be shared. */
+export const workProjects: Project[] = [
+  {
+    id: "aviation-maintenance",
+    name: "Aviation Maintenance App",
+    tagline: "Technician task tracking for airlines",
+    description:
+      "Enterprise iOS app for aviation maintenance crews. Architected the business-logic layers for task management and automated data synchronization, with concurrency-safe real-time updates and resilient state handling across network failures.",
+    category: "iOS App",
+    tags: ["UIKit", "Swift Concurrency", "Sync", "Agile"],
+    accent: "blue",
+    year: "2024 — Present",
+    company: "Pinsoft IT Solutions",
+    closedSource: true,
+    featured: true,
+  },
+  {
+    id: "flight-ops-messaging",
+    name: "Flight-Ops Messaging App",
+    tagline: "Real-time crew messaging",
+    description:
+      "Real-time messaging app for flight operations crews. Built thread-safe messaging infrastructure over XMPP with REST integration, retry and connection management, and optimized network usage for varying conditions — covered by integration tests.",
+    category: "iOS App",
+    tags: ["UIKit", "MVVM", "XMPP", "Realtime"],
+    accent: "violet",
+    year: "2024 — Present",
+    company: "Pinsoft IT Solutions",
+    closedSource: true,
+    featured: true,
+  },
+  {
+    id: "identity-verification-sdk",
+    name: "Identity Verification SDK",
+    tagline: "NFC + face-verification SDK",
+    description:
+      "Production iOS SDK for identity verification: NFC document reading and face verification with secure data processing, encryption, and asynchronous hardware (NFC, camera) pipelines — performance-tuned and tested for cross-device compatibility.",
+    category: "iOS SDK",
+    tags: ["Swift", "NFC", "Vision", "SDK"],
+    accent: "emerald",
+    year: "2021 — 2023",
+    company: "Arvis Technology",
+    closedSource: true,
+    featured: true,
+  },
+  {
+    id: "video-calling-sdk",
+    name: "Video Calling SDK",
+    tagline: "WebRTC real-time video SDK",
+    description:
+      "Worked on the iOS side of a real-time video-calling SDK built on WebRTC — call setup, media streaming, and connection handling for one-to-one and group calls, focused on reliability across varying network conditions.",
+    category: "iOS SDK",
+    tags: ["Swift", "WebRTC", "Realtime", "SDK"],
+    accent: "sky",
+    year: "2021 — 2023",
+    company: "Arvis Technology",
+    closedSource: true,
+    featured: true,
+  },
+];
 
 export const featuredProjects: Project[] = [
   {
@@ -52,6 +117,18 @@ export const featuredProjects: Project[] = [
     year: "2026",
     href: "/fauxcam",
     repo: "https://github.com/mkemalgokce/fauxcam",
+    featured: true,
+  },
+  {
+    id: "wimp",
+    name: "Wimp",
+    tagline: "Find your event photos with AI",
+    description:
+      "An iOS app that uses face recognition to automatically surface the photos you're in among the hundreds taken at an event. Register your face, enter the event code, and download just your shots in seconds. Live on the App Store.",
+    category: "iOS App",
+    tags: ["SwiftUI", "Vision", "Face Recognition", "App Store"],
+    accent: "amber",
+    year: "2026",
     featured: true,
   },
   {

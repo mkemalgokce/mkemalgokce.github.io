@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiStar, FiTerminal, FiTool, FiPackage } from "react-icons/fi";
+import { FiArrowUpRight, FiStar, FiTerminal, FiTool, FiPackage, FiLock, FiSmartphone } from "react-icons/fi";
 import { FaApple } from "react-icons/fa";
 import { SiSwift } from "react-icons/si";
 import type { IconType } from "react-icons";
@@ -19,6 +19,7 @@ const accentMap: Record<ProjectAccent, { chip: string; glow: string }> = {
 
 const categoryIcon: Record<ProjectCategory, IconType> = {
   "iOS App": FaApple,
+  "iOS SDK": FiSmartphone,
   "Developer Tool": FiTool,
   "CLI Tool": FiTerminal,
   "Open-Source Library": FiPackage,
@@ -34,7 +35,8 @@ export default function ProjectCard({
 }) {
   const accent = accentMap[project.accent];
   const Icon = categoryIcon[project.category];
-  const internal = project.href.startsWith("/");
+  const linked = !!project.href && !project.closedSource;
+  const internal = !!project.href && project.href.startsWith("/");
 
   const body = (
     <motion.article
@@ -50,9 +52,15 @@ export default function ProjectCard({
         <span className={`grid h-12 w-12 place-items-center rounded-2xl text-2xl ${accent.chip}`}>
           <Icon aria-hidden />
         </span>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <span className="text-xs font-medium text-fg-muted">{project.year}</span>
-          <FiArrowUpRight className="h-5 w-5 text-fg-subtle transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
+          {project.closedSource ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-fg/[0.06] px-2 py-0.5 text-[11px] font-medium text-fg-subtle">
+              <FiLock className="h-3 w-3" aria-hidden /> Closed
+            </span>
+          ) : (
+            <FiArrowUpRight className="h-5 w-5 text-fg-subtle transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
+          )}
         </div>
       </div>
 
@@ -68,6 +76,9 @@ export default function ProjectCard({
             </span>
           )}
         </div>
+        {project.company && (
+          <p className="mt-1 text-xs font-medium text-fg-subtle">{project.company}</p>
+        )}
         <p className="mt-3 text-[15px] leading-relaxed text-fg-muted">{project.description}</p>
       </div>
 
@@ -84,16 +95,23 @@ export default function ProjectCard({
     </motion.article>
   );
 
+  if (!linked) {
+    return (
+      <div className="h-full" aria-label={`${project.name} — ${project.tagline}`}>
+        {body}
+      </div>
+    );
+  }
   if (internal) {
     return (
-      <Link href={project.href} aria-label={`${project.name} — ${project.tagline}`} className="block h-full">
+      <Link href={project.href!} aria-label={`${project.name} — ${project.tagline}`} className="block h-full">
         {body}
       </Link>
     );
   }
   return (
     <a
-      href={project.href}
+      href={project.href!}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${project.name} — ${project.tagline} (opens GitHub)`}
