@@ -62,6 +62,20 @@ export const workProjects: Project[] = [
     featured: true,
   },
   {
+    id: "efb",
+    name: "Electronic Flight Bag (EFB)",
+    tagline: "Offline-first EFB used by pilots",
+    description:
+      "iOS Electronic Flight Bag used by flight crews in the cockpit. Built with a combined SwiftUI + UIKit architecture and robust offline caching so charts and operational data stay available without connectivity — engineered for reliability and performance.",
+    category: "iOS App",
+    tags: ["SwiftUI", "UIKit", "Offline Cache", "Aviation"],
+    accent: "rose",
+    year: "2024 — Present",
+    company: "Pinsoft IT Solutions",
+    closedSource: true,
+    featured: true,
+  },
+  {
     id: "identity-verification-sdk",
     name: "Identity Verification SDK",
     tagline: "NFC + face-verification SDK",
