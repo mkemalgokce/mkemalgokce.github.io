@@ -1,35 +1,31 @@
-import { getPostBySlug, getAllPosts } from "@/lib/markdown"
-import { Metadata } from "next"
-import Script from "next/script"
-import Header from "@/components/Header"
-import HomeFooter from "@/components/HomeFooter"
-import './syntax-light.css'
-import { formatDate } from "@/lib/date"
-import ShareButtons from "@/components/ShareButtons"
+import { getPostBySlug, getAllPosts } from "@/lib/markdown";
+import { Metadata } from "next";
+import Link from "next/link";
+import { FiArrowLeft } from "react-icons/fi";
+import Aurora from "@/components/Aurora";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ArticleContent from "@/components/ArticleContent";
+import ShareButtons from "@/components/ShareButtons";
+import { formatDate } from "@/lib/date";
+import { site } from "@/lib/site";
+import "./syntax-light.css";
 
 type Props = {
-  params: Promise<{ slug: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateStaticParams() {
-  const posts = getAllPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  const posts = getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
-  
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    }
-  }
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) return { title: "Post Not Found" };
 
-  const url = `https://mkemalgokce.github.io/blog/${post.slug}`
+  const url = `${site.url}/blog/${post.slug}`;
   return {
     title: post.title,
     description: post.excerpt,
@@ -38,84 +34,98 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.excerpt,
       url,
-      type: 'article',
+      type: "article",
       images: post.coverImage ? [{ url: post.coverImage, alt: post.title }] : undefined,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
       images: post.coverImage ? [post.coverImage] : undefined,
     },
-  }
+  };
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117]">
-        <Header />
-        <main className="flex-1 container mx-auto px-4 py-16">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              Post Not Found
-            </h1>
-          </div>
-        </main>
-        <HomeFooter />
-      </div>
-    )
+      <>
+        <Aurora />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <Header />
+          <main id="main" className="flex-1">
+            <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
+              <h1 className="text-2xl font-bold">Post not found</h1>
+              <Link href="/blog" className="mt-4 inline-block font-medium text-accent-strong hover:underline">
+                ← Back to the blog
+              </Link>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      </>
+    );
   }
 
-  const postUrl = `https://mkemalgokce.github.io/blog/${slug}`
+  const postUrl = `${site.url}/blog/${slug}`;
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     datePublished: new Date(post.date).toISOString(),
     author: {
-      '@type': 'Person',
-      name: 'Mustafa Kemal GÖKÇE',
-      alternateName: 'Mustafa Kemal GOKCE',
-      url: 'https://mkemalgokce.github.io',
+      "@type": "Person",
+      name: site.name,
+      alternateName: "Mustafa Kemal GOKCE",
+      url: site.url,
     },
     mainEntityOfPage: postUrl,
     image: post.coverImage ? [post.coverImage] : undefined,
-  }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-[#0d1117]">
-      <Header />
-      <main className="flex-1">
-        <article className="container mx-auto px-4 py-16">
-          <div className="max-w-3xl mx-auto">
-            <Script id="ld-json-article" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-            <header className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                {post.title}
-              </h1>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-gray-50" />
-                  <time className="text-gray-600 dark:text-gray-400 text-sm">
-                    {formatDate(post.date)}
-                  </time>
-                </div>
-                <ShareButtons url={postUrl} title={post.title} />
-              </div>
-            </header>
+    <>
+      <Aurora />
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <Header />
+        <main id="main" className="flex-1">
+          <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
 
-            <div className="prose prose-gray dark:prose-invert prose-pre:p-4 max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          <Link
+            href="/blog"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-fg-muted transition-colors hover:text-fg"
+          >
+            <FiArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            Back to blog
+          </Link>
+
+          <header className="mt-6 border-b border-border pb-8">
+            <h1 className="text-balance font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+              {post.title}
+            </h1>
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <time className="text-sm font-medium text-fg-subtle" dateTime={post.date}>
+                {formatDate(post.date)}
+              </time>
+              <ShareButtons url={postUrl} title={post.title} />
             </div>
+          </header>
+
+          <div className="mt-8">
+            <ArticleContent html={post.content} />
           </div>
         </article>
       </main>
-      <HomeFooter />
-    </div>
-  )
-} 
+      <Footer />
+      </div>
+    </>
+  );
+}

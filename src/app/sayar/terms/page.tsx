@@ -4,6 +4,12 @@ import { SayarNav, SayarFooter, SAYAR_EMAIL } from "../_components/SiteChrome";
 export const metadata: Metadata = {
   title: "Terms of Service — Sayar",
   description: "The terms that govern your use of the Sayar expense tracking app.",
+  alternates: { canonical: "https://mkemalgokce.github.io/sayar/terms" },
+  openGraph: {
+    url: "https://mkemalgokce.github.io/sayar/terms",
+    title: "Terms of Service — Sayar",
+    description: "The terms that govern your use of the Sayar expense tracking app.",
+  },
 };
 
 export default function TermsPage() {

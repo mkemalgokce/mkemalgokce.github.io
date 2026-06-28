@@ -9,6 +9,8 @@ export function SayarLogo({ className = "h-8 w-8" }: { className?: string }) {
     <img
       src="/sayar-icon.png"
       alt="Sayar app icon"
+      width={64}
+      height={64}
       className={`rounded-[22%] shadow-sm ring-1 ring-black/5 ${className}`}
     />
   );
@@ -36,15 +38,13 @@ export function SayarNav({ active }: { active?: "privacy" | "terms" }) {
           >
             Terms
           </Link>
-          <a
-            href="https://apps.apple.com/app/sayar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+          <span
+            aria-disabled="true"
+            className="inline-flex cursor-default items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
           >
             <FaApple className="h-4 w-4" aria-hidden />
-            Download
-          </a>
+            Coming soon
+          </span>
         </div>
       </div>
     </nav>

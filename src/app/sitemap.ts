@@ -9,9 +9,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts()
 
   const routes: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/`, lastModified: new Date() },
-    { url: `${baseUrl}/blog`, lastModified: new Date() },
-    { url: `${baseUrl}/about`, lastModified: new Date() },
+    { url: `${baseUrl}/`, lastModified: new Date(), priority: 1 },
+    { url: `${baseUrl}/projects`, lastModified: new Date(), priority: 0.9 },
+    { url: `${baseUrl}/blog`, lastModified: new Date(), priority: 0.8 },
+    { url: `${baseUrl}/about`, lastModified: new Date(), priority: 0.7 },
+    { url: `${baseUrl}/fauxcam`, lastModified: new Date(), priority: 0.6 },
+    { url: `${baseUrl}/sayar`, lastModified: new Date(), priority: 0.6 },
+    { url: `${baseUrl}/sayar/privacy`, lastModified: new Date(), priority: 0.3 },
+    { url: `${baseUrl}/sayar/terms`, lastModified: new Date(), priority: 0.3 },
   ]
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({

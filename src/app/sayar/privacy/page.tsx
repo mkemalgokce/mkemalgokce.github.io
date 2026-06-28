@@ -4,6 +4,12 @@ import { SayarNav, SayarFooter, SAYAR_EMAIL } from "../_components/SiteChrome";
 export const metadata: Metadata = {
   title: "Privacy Policy — Sayar",
   description: "How Sayar handles your data. Private by design: your finances stay on your device.",
+  alternates: { canonical: "https://mkemalgokce.github.io/sayar/privacy" },
+  openGraph: {
+    url: "https://mkemalgokce.github.io/sayar/privacy",
+    title: "Privacy Policy — Sayar",
+    description: "How Sayar handles your data. Private by design: your finances stay on your device.",
+  },
 };
 
 export default function PrivacyPage() {

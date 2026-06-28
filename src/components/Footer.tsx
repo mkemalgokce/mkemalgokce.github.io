@@ -1,52 +1,67 @@
-'use client'
+"use client";
 
-import { SiGithub, SiLinkedin, SiAppstore } from 'react-icons/si'
-import { motion } from 'framer-motion'
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+import { HiMail } from "react-icons/hi";
+import { nav, site } from "@/lib/site";
+
+const socials = [
+  { label: "GitHub", href: site.socials.github, Icon: SiGithub, external: true },
+  { label: "LinkedIn", href: site.socials.linkedin, Icon: SiLinkedin, external: true },
+  { label: "Email", href: `mailto:${site.email}`, Icon: HiMail, external: false },
+];
 
 export default function Footer() {
   return (
-    <footer className="py-12 border-t border-ios-gray-200 dark:border-ios-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex gap-6">
-              <motion.a
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://github.com/mkemalgokce"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ios-gray-600 dark:text-ios-gray-400 hover:text-ios-blue dark:hover:text-ios-blue transition-colors"
-              >
-                <SiGithub className="w-6 h-6" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://linkedin.com/in/mkemalgokce"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ios-gray-600 dark:text-ios-gray-400 hover:text-ios-blue dark:hover:text-ios-blue transition-colors"
-              >
-                <SiLinkedin className="w-6 h-6" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://apps.apple.com/developer/yourid"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ios-gray-600 dark:text-ios-gray-400 hover:text-ios-blue dark:hover:text-ios-blue transition-colors"
-              >
-                <SiAppstore className="w-6 h-6" />
-              </motion.a>
-            </div>
-            <p className="text-sm text-ios-gray-500 dark:text-ios-gray-400">
-              © {new Date().getFullYear()} MKG. Built with Next.js and Tailwind CSS.
-            </p>
+    <footer className="mt-8 border-t border-border/60 px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-sm">
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-fg text-bg text-[12px] font-bold tracking-tight">
+                MKG
+              </span>
+              <span className="text-[15px] font-semibold tracking-tight">{site.name}</span>
+            </Link>
+            <p className="mt-4 text-sm leading-relaxed text-fg-muted">{site.bio}</p>
           </div>
+
+          <nav aria-label="Footer" className="flex flex-col gap-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-fg-muted">Explore</span>
+            {nav.map(({ label, href }) => (
+              <Link key={href} href={href} className="text-sm text-fg-muted transition-colors hover:text-fg">
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-fg-muted">Connect</span>
+            <div className="flex gap-2">
+              {socials.map(({ label, href, Icon, external }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={label}
+                  className="grid h-11 w-11 place-items-center rounded-full glass text-fg-muted transition-colors hover:text-accent-strong"
+                >
+                  <Icon className="h-5 w-5" aria-hidden />
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-6 text-center text-sm text-fg-subtle sm:flex-row sm:text-left">
+          <p suppressHydrationWarning>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <p>Designed &amp; built with Next.js and Tailwind CSS.</p>
         </div>
       </div>
     </footer>
-  )
-} 
+  );
+}

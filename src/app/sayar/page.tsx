@@ -52,9 +52,26 @@ function Reveal({
   );
 }
 
+const sayarJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Sayar",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "iOS",
+  description:
+    "A natural-language expense tracker for iOS. Type plain words like “-300 market” and it’s logged — with iCloud sync, CSV/JSON export, and smart insights. Private by design.",
+  url: "https://mkemalgokce.github.io/sayar",
+  offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+  author: { "@type": "Person", name: "Mustafa Kemal GÖKÇE" },
+};
+
 export default function SayarPage() {
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased selection:bg-blue-600/15">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(sayarJsonLd) }}
+      />
       <SayarNav />
       <main className="overflow-x-hidden">
         <Hero />
@@ -121,15 +138,13 @@ function Hero() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
           >
-            <a
-              href="https://apps.apple.com/app/sayar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 px-7 py-4 text-base font-semibold text-white shadow-lg shadow-slate-900/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-600 hover:shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:w-auto"
+            <span
+              aria-disabled="true"
+              className="inline-flex w-full cursor-default items-center justify-center gap-3 rounded-2xl bg-slate-900 px-7 py-4 text-base font-semibold text-white shadow-lg shadow-slate-900/10 sm:w-auto"
             >
               <FaApple className="h-5 w-5" aria-hidden />
-              Download on the App Store
-            </a>
+              Coming soon to the App Store
+            </span>
             <a
               href="#features"
               className="text-base font-medium text-slate-500 transition-colors hover:text-slate-900"
@@ -618,15 +633,13 @@ function CTA() {
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-blue-100">
             Download Sayar and record your first expense before you finish reading this sentence.
           </p>
-          <a
-            href="https://apps.apple.com/app/sayar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative mt-9 inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-base font-semibold text-slate-900 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
+          <span
+            aria-disabled="true"
+            className="relative mt-9 inline-flex cursor-default items-center gap-3 rounded-2xl bg-white px-8 py-4 text-base font-semibold text-slate-900 shadow-lg"
           >
             <FaApple className="h-5 w-5" aria-hidden />
-            Download on the App Store
-          </a>
+            Coming soon to the App Store
+          </span>
         </div>
       </Reveal>
     </section>

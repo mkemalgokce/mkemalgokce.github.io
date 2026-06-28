@@ -1,32 +1,37 @@
-import { getAllPosts } from "@/lib/markdown"
-import { Metadata } from "next"
-import Header from "@/components/Header"
-import HomeFooter from "@/components/HomeFooter"
-import BlogList from "@/components/BlogList"
+import { getAllPosts } from "@/lib/markdown";
+import { Metadata } from "next";
+import Aurora from "@/components/Aurora";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import BlogList from "@/components/BlogList";
 
 export const metadata: Metadata = {
-  title: 'Blog - iOS Development',
-  description: 'Articles about iOS development, Swift programming, and mobile app development.',
-}
+  title: "Blog",
+  description:
+    "Articles on iOS development, Swift, SwiftUI, testing, and mobile app craftsmanship by Mustafa Kemal GÖKÇE.",
+  alternates: { canonical: "https://mkemalgokce.github.io/blog" },
+  openGraph: {
+    title: "Blog | Mustafa Kemal GÖKÇE",
+    description:
+      "Articles on iOS development, Swift, SwiftUI, and testing.",
+    url: "https://mkemalgokce.github.io/blog",
+    type: "website",
+    images: [{ url: "/avatar.jpg", width: 460, height: 460, alt: "Mustafa Kemal GÖKÇE" }],
+  },
+};
 
-export default async function BlogPage() {
-  const posts = getAllPosts()
-
+export default function BlogPage() {
+  const posts = getAllPosts();
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-black">
-      <Header />
-      <main className="flex-1">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-12">
-              Blog Posts
-            </h1>
-
-            <BlogList posts={posts} />
-          </div>
-        </div>
-      </main>
-      <HomeFooter />
-    </div>
-  )
-} 
+    <>
+      <Aurora />
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <Header />
+        <main id="main" className="flex-1">
+          <BlogList posts={posts} />
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
+}

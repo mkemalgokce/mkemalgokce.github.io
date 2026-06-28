@@ -1,90 +1,143 @@
-'use client'
+"use client";
 
-import { Post } from "@/lib/markdown"
-import Link from "next/link"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { useState } from "react"
-import { HiSearch } from "react-icons/hi"
-import { formatDate } from "@/lib/date"
+import { useMemo, useState } from "react";
+import { FiSearch, FiX } from "react-icons/fi";
+import type { Post } from "@/lib/markdown";
+import PostCard from "@/components/PostCard";
+import { Reveal, StaggerGroup, FadeItem } from "@/components/ui/motion";
 
-interface BlogListProps {
-  posts: Post[]
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-sm font-semibold uppercase tracking-wider text-accent-strong">{children}</p>
+  );
 }
 
-export default function BlogList({ posts }: BlogListProps) {
-  const [searchQuery, setSearchQuery] = useState("")
+export default function BlogList({ posts }: { posts: Post[] }) {
+  const [query, setQuery] = useState("");
 
-  const filteredPosts = posts.filter(post =>
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const trimmed = query.trim();
+  const isSearching = trimmed.length > 0;
+
+  const filtered = useMemo(() => {
+    const q = trimmed.toLowerCase();
+    if (!q) return posts;
+    return posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(q) ||
+        post.excerpt.toLowerCase().includes(q)
+    );
+  }, [posts, trimmed]);
+
+  const count = filtered.length;
+  const countLabel = isSearching
+    ? `${count} ${count === 1 ? "result" : "results"}`
+    : `${count} ${count === 1 ? "post" : "posts"}`;
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-5">
-      <div className="max-w-5xl mx-auto space-y-8">
-        {/* Search and Count */}
-        <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="text-gray-900 dark:text-white">
-              <span className="font-medium">{posts.length}</span> posts published
-            </div>
-            <div className="relative flex-1 md:max-w-md">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <HiSearch className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              />
-            </div>
-          </div>
-        </div>
+    <>
+      <section className="px-4 pt-12 sm:px-6 sm:pt-16 lg:px-8">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Writing</Eyebrow>
+          <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
+            Blog
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-balance text-lg text-fg-muted">
+            Notes on iOS, Swift, testing, and building for Apple platforms.
+          </p>
+        </Reveal>
+      </section>
 
-        {/* Blog Posts */}
-        <div className="grid gap-4">
-          {filteredPosts.map((post) => (
-            <motion.article
-              key={post.slug}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="group"
-            >
-              <Link href={`/blog/${post.slug}`}>
-                <div className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors flex gap-4">
-                  {post.coverImage && (
-                    <div className="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden">
-                      <Image
-                        src={post.coverImage}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+      <section className="px-4 pb-16 pt-10 sm:px-6 sm:pb-20 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="w-full sm:max-w-md">
+                <label htmlFor="blog-search" className="sr-only">
+                  Search posts
+                </label>
+                <div className="glass flex h-12 items-center gap-2 rounded-full pl-4 pr-1.5 transition-shadow focus-within:ring-2 focus-within:ring-ring">
+                  <FiSearch
+                    aria-hidden
+                    className="h-5 w-5 shrink-0 text-fg-subtle"
+                  />
+                  <input
+                    id="blog-search"
+                    type="search"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="Search posts&hellip;"
+                    autoComplete="off"
+                    className="h-full w-full bg-transparent text-[15px] text-fg outline-none placeholder:text-fg-subtle"
+                  />
+                  {isSearching && (
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      aria-label="Clear search"
+                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-fg-subtle transition-colors hover:bg-bg-subtle hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      <FiX className="h-4 w-4" aria-hidden />
+                    </button>
                   )}
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-ios-blue transition-colors">
-                      {post.title}
-                    </h2>
-                    <div className="flex items-center gap-2 my-1">
-                      <div className="w-1 h-1 rounded-full bg-gray-50" />
-                      <time className="text-gray-500 dark:text-gray-400 text-xs">
-                        {formatDate(post.date)}
-                      </time>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                  </div>
                 </div>
-              </Link>
-            </motion.article>
-          ))}
+              </div>
+              <p
+                aria-live="polite"
+                className="text-sm font-medium text-fg-muted sm:text-right"
+              >
+                {countLabel}
+              </p>
+            </div>
+          </Reveal>
+
+          {count > 0 ? (
+            <>
+              <h2 className="sr-only">All posts</h2>
+              <StaggerGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {filtered.map((post) => (
+                  <FadeItem key={post.slug} className="h-full">
+                    <PostCard post={post} />
+                  </FadeItem>
+                ))}
+              </StaggerGroup>
+            </>
+          ) : (
+            <Reveal className="mt-10">
+              <div className="glass flex flex-col items-center justify-center rounded-3xl px-6 py-16 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-bg-subtle/70 text-fg-subtle">
+                  <FiSearch className="h-6 w-6" aria-hidden />
+                </div>
+                {isSearching ? (
+                  <>
+                    <h2 className="mt-5 text-lg font-bold tracking-tight">
+                      No posts match &ldquo;{trimmed}&rdquo;
+                    </h2>
+                    <p className="mt-2 max-w-sm text-[15px] text-fg-muted">
+                      Try a different keyword, or clear the search to see everything.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      className="glass-tint mt-6 inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      Clear search
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="mt-5 text-lg font-bold tracking-tight">
+                      Nothing here yet
+                    </h2>
+                    <p className="mt-2 max-w-sm text-[15px] text-fg-muted">
+                      New writing is on the way &mdash; check back soon.
+                    </p>
+                  </>
+                )}
+              </div>
+            </Reveal>
+          )}
         </div>
-      </div>
-    </div>
-  )
-} 
+      </section>
+    </>
+  );
+}
