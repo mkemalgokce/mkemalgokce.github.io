@@ -11,6 +11,12 @@ import {
   SiPython,
   SiGithub,
   SiLinkedin,
+  SiFlutter,
+  SiDart,
+  SiReact,
+  SiKotlin,
+  SiAndroid,
+  SiTypescript,
 } from "react-icons/si";
 import { HiMail } from "react-icons/hi";
 import {
@@ -20,6 +26,10 @@ import {
   FiLayers,
   FiTool,
   FiServer,
+  FiCheckCircle,
+  FiAward,
+  FiGlobe,
+  FiDownload,
 } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import { Reveal, StaggerGroup, FadeItem, fadeUp, stagger } from "@/components/ui/motion";
@@ -30,6 +40,7 @@ const BIO =
 
 const STATS: { value: string; label: string }[] = [
   { value: "4+", label: "Years shipping" },
+  { value: "15+", label: "Projects built" },
   { value: "iOS", label: "Native focus" },
 ];
 
@@ -40,11 +51,17 @@ const SOCIALS: { label: string; href: string; Icon: IconType }[] = [
 
 const SKILLS: { name: string; Icon: IconType; tint: string }[] = [
   { name: "Swift", Icon: SiSwift, tint: "text-orange-500" },
+  { name: "Flutter", Icon: SiFlutter, tint: "text-cyan-500" },
+  { name: "Dart", Icon: SiDart, tint: "text-sky-500" },
+  { name: "React Native", Icon: SiReact, tint: "text-sky-400" },
+  { name: "Kotlin", Icon: SiKotlin, tint: "text-violet-500" },
+  { name: "TypeScript", Icon: SiTypescript, tint: "text-blue-500" },
+  { name: "Python", Icon: SiPython, tint: "text-amber-500" },
+  { name: "C++", Icon: SiCplusplus, tint: "text-blue-600 dark:text-blue-400" },
+  { name: "Android", Icon: SiAndroid, tint: "text-green-500" },
   { name: "Xcode", Icon: SiXcode, tint: "text-blue-500" },
   { name: "Git", Icon: SiGit, tint: "text-orange-600 dark:text-orange-500" },
   { name: "Docker", Icon: SiDocker, tint: "text-sky-500" },
-  { name: "C++", Icon: SiCplusplus, tint: "text-blue-600 dark:text-blue-400" },
-  { name: "Python", Icon: SiPython, tint: "text-amber-500" },
 ];
 
 type Experience = {
@@ -75,11 +92,52 @@ const EXPERIENCE: Experience[] = [
     period: "2021 — 2023",
     points: [
       "Built iOS apps with Swift and Apple frameworks",
-      "Contributed to a Face Recognition SDK",
-      "Helped build an Online Banking SDK",
-      "Integrated various technologies into mobile solutions",
+      "Contributed to NFC + face-verification and online-banking SDKs",
+      "Worked on the mobile side of a WebRTC video-calling SDK",
+      "Wrote unit & integration tests for SDK reliability across iOS versions and devices",
     ],
   },
+  {
+    role: "Freelance iOS Developer",
+    company: "Remote",
+    period: "2020 — 2021",
+    points: [
+      "Designed and shipped custom iOS apps for small businesses and startups",
+      "Built a restaurant ordering app with real-time tracking and push notifications",
+      "Developed a fitness tracking app with HealthKit and Core Data",
+    ],
+  },
+  {
+    role: "iOS Developer Intern",
+    company: "Arvis Technology",
+    period: "2020 — 2021",
+    points: [
+      "Built iOS apps under senior developer mentorship",
+      "Hands-on with Swift, UIKit, and version control",
+    ],
+  },
+];
+
+type Education = { degree: string; school: string; period: string; detail?: string };
+
+const EDUCATION: Education[] = [
+  {
+    degree: "M.Sc., Electronics & Communication Engineering",
+    school: "Yıldız Technical University",
+    period: "2024 — Present",
+    detail: "Istanbul, TR",
+  },
+  {
+    degree: "B.Sc., Computer Engineering",
+    school: "Istanbul Medeniyet University",
+    period: "2018 — 2022",
+    detail: "GPA 3.1 / 4.0 · Istanbul, TR",
+  },
+];
+
+const LANGUAGES: { name: string; level: string }[] = [
+  { name: "Turkish", level: "Native" },
+  { name: "English", level: "Upper-Intermediate" },
 ];
 
 type Expertise = {
@@ -96,28 +154,49 @@ const EXPERTISE: Expertise[] = [
     Icon: FiSmartphone,
     chip: "bg-blue-500/12 text-blue-600 dark:text-blue-400",
     glow: "bg-blue-500/20",
-    items: ["UIKit", "SwiftUI", "Core Data", "Core Animation", "Auto Layout", "Storyboard & XIB", "Programmatic UI"],
+    items: ["UIKit", "SwiftUI", "Swift Concurrency", "Combine", "Core Data", "Core Animation", "Auto Layout", "Programmatic UI"],
+  },
+  {
+    title: "Cross-Platform",
+    Icon: SiFlutter,
+    chip: "bg-cyan-500/12 text-cyan-600 dark:text-cyan-400",
+    glow: "bg-cyan-500/20",
+    items: ["Flutter", "Dart", "React Native", "State Management", "Platform Channels", "Responsive UI", "App Store & Play Store"],
+  },
+  {
+    title: "Android",
+    Icon: SiAndroid,
+    chip: "bg-green-500/12 text-green-600 dark:text-green-400",
+    glow: "bg-green-500/20",
+    items: ["Kotlin", "Jetpack Compose", "Android SDK", "Material Design", "Coroutines", "Gradle"],
   },
   {
     title: "Architecture & Patterns",
     Icon: FiLayers,
     chip: "bg-violet-500/12 text-violet-600 dark:text-violet-400",
     glow: "bg-violet-500/20",
-    items: ["MVVM", "Clean Architecture", "Protocol-Oriented", "Dependency Injection", "Repository Pattern", "Observer", "Coordinator"],
+    items: ["MVVM", "VIPER", "Clean Architecture", "MVC", "Coordinator", "Dependency Injection", "Protocol-Oriented", "Repository", "SOLID"],
   },
   {
-    title: "Tooling",
+    title: "Practices",
+    Icon: FiCheckCircle,
+    chip: "bg-rose-500/12 text-rose-600 dark:text-rose-400",
+    glow: "bg-rose-500/20",
+    items: ["TDD", "Clean Code", "Unit & Snapshot Testing", "Agile / Scrum", "Code Review", "Mentoring", "CI/CD"],
+  },
+  {
+    title: "Tooling & CI/CD",
     Icon: FiTool,
     chip: "bg-emerald-500/12 text-emerald-600 dark:text-emerald-400",
     glow: "bg-emerald-500/20",
-    items: ["Xcode", "Instruments", "CocoaPods", "SPM", "Fastlane", "Charles Proxy", "Git"],
+    items: ["Xcode", "Tuist", "Fastlane", "SPM", "CocoaPods", "GitHub Actions", "Instruments", "Git"],
   },
   {
     title: "Backend Integration",
     Icon: FiServer,
     chip: "bg-amber-500/12 text-amber-600 dark:text-amber-400",
     glow: "bg-amber-500/20",
-    items: ["RESTful APIs", "JSON/Codable", "URLSession", "Alamofire", "WebSocket", "JWT", "OAuth"],
+    items: ["RESTful APIs", "JSON/Codable", "URLSession", "Alamofire", "WebSocket", "Firebase", "JWT", "OAuth"],
   },
 ];
 
@@ -131,9 +210,9 @@ export default function AboutView() {
   return (
     <>
       <Hero />
-      <Skills />
+      <Capabilities />
       <ExperienceTimeline />
-      <ExpertiseGrid />
+      <EducationSection />
     </>
   );
 }
@@ -214,6 +293,15 @@ function Hero() {
             Get in touch
             <FiArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
+          <a
+            href="/cv.pdf"
+            download
+            aria-label="Download CV (PDF)"
+            className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full glass px-6 py-3.5 text-base font-semibold text-fg transition-transform duration-200 hover:-translate-y-0.5 sm:w-auto"
+          >
+            <FiDownload className="h-5 w-5" aria-hidden />
+            Download CV
+          </a>
           {SOCIALS.map(({ label, href, Icon }) => (
             <a
               key={label}
@@ -243,32 +331,64 @@ function Hero() {
   );
 }
 
-/* ── Skills ─────────────────────────────────────────────────── */
+/* ── Capabilities ───────────────────────────────────────────── */
 
-function Skills() {
+function Capabilities() {
   return (
     <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-4xl">
         <Reveal>
-          <Eyebrow>Stack</Eyebrow>
+          <Eyebrow>Capabilities</Eyebrow>
           <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
-            Languages &amp; daily tools
+            What I bring to mobile
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-fg-muted">
-            What I reach for most when shipping polished, dependable apps.
+            iOS-first, comfortable across cross-platform and Android &mdash; a rounded toolkit
+            spanning UI, architecture, testing, tooling, and everything that connects an app to the
+            outside world.
           </p>
         </Reveal>
 
-        <StaggerGroup className="mt-10 flex flex-wrap gap-3">
+        {/* Stack chips */}
+        <StaggerGroup className="mt-8 flex flex-wrap gap-2.5">
           {SKILLS.map(({ name, Icon, tint }) => (
             <FadeItem key={name}>
-              <span className="inline-flex items-center gap-2.5 rounded-full glass px-4 py-2.5 transition-transform duration-200 hover:-translate-y-1">
-                <Icon className={`text-xl ${tint}`} aria-hidden />
-                <span className="text-sm font-semibold text-fg">{name}</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle/70 px-3.5 py-2 text-sm font-semibold text-fg">
+                <Icon className={`text-base ${tint}`} aria-hidden />
+                {name}
               </span>
             </FadeItem>
           ))}
         </StaggerGroup>
+
+        {/* Spec-sheet panel — stacked groups, one surface */}
+        <Reveal delay={0.05} className="mt-10">
+          <div className="divide-y divide-border overflow-hidden rounded-3xl glass px-6 sm:px-9">
+            {EXPERTISE.map(({ title, Icon, chip, items }) => (
+              <div
+                key={title}
+                className="flex flex-col gap-3.5 py-7 first:pt-8 last:pb-8 sm:flex-row sm:items-start sm:gap-8"
+              >
+                <div className="flex items-center gap-3 sm:w-52 sm:shrink-0">
+                  <span className={`grid h-11 w-11 place-items-center rounded-2xl text-xl ${chip}`}>
+                    <Icon aria-hidden />
+                  </span>
+                  <h3 className="text-base font-bold tracking-tight">{title}</h3>
+                </div>
+                <div className="flex flex-1 flex-wrap gap-2 sm:pt-1.5">
+                  {items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border bg-bg-subtle/70 px-3 py-1 text-[13px] font-medium text-fg-muted"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -279,7 +399,7 @@ function Skills() {
 function ExperienceTimeline() {
   return (
     <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-4xl">
         <Reveal>
           <Eyebrow>Experience</Eyebrow>
           <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
@@ -291,7 +411,7 @@ function ExperienceTimeline() {
           <span aria-hidden className="absolute bottom-4 left-[7px] top-4 w-px bg-border" />
           <div className="space-y-8">
             {EXPERIENCE.map((job, index) => (
-              <Reveal key={job.company} delay={index * 0.05} className="relative pl-8 sm:pl-10">
+              <Reveal key={`${job.company}-${job.period}`} delay={index * 0.05} className="relative pl-8 sm:pl-10">
                 <span
                   aria-hidden
                   className={`absolute left-0 top-7 h-3.5 w-3.5 -translate-x-[6px] rounded-full ring-4 ring-bg ${
@@ -354,56 +474,75 @@ function ExperienceTimeline() {
   );
 }
 
-/* ── iOS expertise grid ─────────────────────────────────────── */
+/* ── Education & languages ──────────────────────────────────── */
 
-function ExpertiseGrid() {
+function EducationSection() {
   return (
     <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-4xl">
         <Reveal>
-          <Eyebrow>Expertise</Eyebrow>
+          <Eyebrow>Education</Eyebrow>
           <h2 className="mt-2 text-balance text-3xl font-bold tracking-tight sm:text-4xl">
-            What I bring to iOS
+            Studies &amp; languages
           </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-fg-muted">
-            A rounded toolkit spanning UI, architecture, tooling, and everything that connects an app
-            to the outside world.
-          </p>
         </Reveal>
 
-        <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2">
-          {EXPERTISE.map(({ title, Icon, chip, glow, items }) => (
-            <FadeItem key={title} className="h-full">
+        <StaggerGroup className="mt-10 grid gap-5 sm:grid-cols-2">
+          {EDUCATION.map((e) => (
+            <FadeItem key={e.degree} className="h-full">
               <motion.article
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative h-full overflow-hidden rounded-3xl glass p-6 transition-shadow duration-300 hover:shadow-lift sm:p-7"
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl glass p-6 transition-shadow duration-300 hover:shadow-lift sm:p-7"
               >
                 <div
                   aria-hidden
-                  className={`pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100 ${glow}`}
+                  className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-500/20 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
                 />
-                <div className="relative flex items-center gap-4">
-                  <span className={`grid h-12 w-12 place-items-center rounded-2xl text-2xl ${chip}`}>
-                    <Icon aria-hidden />
+                <div className="relative flex items-center justify-between gap-3">
+                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-500/12 text-xl text-blue-600 dark:text-blue-400">
+                    <FiAward aria-hidden />
                   </span>
-                  <h3 className="text-xl font-bold tracking-tight">{title}</h3>
+                  <span className="inline-flex items-center rounded-full border border-border bg-bg-subtle/70 px-3 py-1 text-xs font-medium text-fg-muted">
+                    {e.period}
+                  </span>
                 </div>
-
-                <div className="relative mt-5 flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border bg-bg-subtle/70 px-2.5 py-1 text-xs font-medium text-fg-muted"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+                <h3 className="relative mt-4 text-lg font-bold leading-snug tracking-tight">
+                  {e.degree}
+                </h3>
+                <p className="relative mt-1 text-[15px] font-semibold text-accent-strong">
+                  {e.school}
+                </p>
+                {e.detail && (
+                  <p className="relative mt-auto pt-2 text-sm text-fg-muted">{e.detail}</p>
+                )}
               </motion.article>
             </FadeItem>
           ))}
         </StaggerGroup>
+
+        <Reveal delay={0.05} className="mt-5">
+          <div className="rounded-3xl glass p-6 sm:p-7">
+            <div className="flex items-center gap-2.5">
+              <FiGlobe className="h-5 w-5 text-accent-strong" aria-hidden />
+              <h3 className="text-base font-bold tracking-tight">Languages</h3>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {LANGUAGES.map((l) => (
+                <span
+                  key={l.name}
+                  className="inline-flex items-center gap-2 rounded-full border border-border bg-bg-subtle/70 px-3.5 py-2 text-sm"
+                >
+                  <span className="font-semibold text-fg">{l.name}</span>
+                  <span aria-hidden className="text-fg-subtle">
+                    ·
+                  </span>
+                  <span className="text-fg-muted">{l.level}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

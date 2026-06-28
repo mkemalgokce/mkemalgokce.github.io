@@ -103,6 +103,34 @@ export const workProjects: Project[] = [
     closedSource: true,
     featured: true,
   },
+  {
+    id: "restaurant-ordering",
+    name: "Restaurant Ordering App",
+    tagline: "Real-time ordering with live tracking",
+    description:
+      "A cross-platform ordering app for a restaurant client — browse the menu, place an order, and follow it live with real-time order tracking and push notifications.",
+    category: "iOS App",
+    tags: ["React Native", "JavaScript", "Realtime", "Push Notifications"],
+    accent: "amber",
+    year: "2020 — 2021",
+    company: "Freelance",
+    closedSource: true,
+    featured: true,
+  },
+  {
+    id: "fitness-tracker",
+    name: "Fitness Tracking App",
+    tagline: "Workout tracking with HealthKit",
+    description:
+      "An iOS fitness app for a freelance client — tracks workouts and activity through HealthKit and stores everything locally with Core Data for fast, offline-friendly access.",
+    category: "iOS App",
+    tags: ["Swift", "HealthKit", "Core Data", "iOS"],
+    accent: "rose",
+    year: "2020 — 2021",
+    company: "Freelance",
+    closedSource: true,
+    featured: true,
+  },
 ];
 
 export const featuredProjects: Project[] = [
@@ -138,9 +166,9 @@ export const featuredProjects: Project[] = [
     name: "Wimp",
     tagline: "Find your event photos with AI",
     description:
-      "An iOS app that uses face recognition to automatically surface the photos you're in among the hundreds taken at an event. Register your face, enter the event code, and download just your shots in seconds. Live on the App Store.",
+      "A Flutter app that uses face recognition to automatically surface the photos you're in among the hundreds taken at an event. Register your face, enter the event code, and download just your shots in seconds. Live on the App Store.",
     category: "iOS App",
-    tags: ["SwiftUI", "Vision", "Face Recognition", "App Store"],
+    tags: ["Flutter", "Dart", "Face Recognition", "App Store"],
     accent: "amber",
     year: "2026",
     featured: true,

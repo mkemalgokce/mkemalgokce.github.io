@@ -61,6 +61,7 @@ export const metadata: Metadata = {
     canonical: site.url,
     types: { "application/rss+xml": `${site.url}/rss.xml` },
   },
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

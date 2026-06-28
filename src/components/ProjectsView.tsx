@@ -62,8 +62,8 @@ export default function ProjectsView() {
               Professional projects
             </h2>
             <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fg-muted">
-              Enterprise iOS apps and SDKs I&rsquo;ve shipped at Pinsoft and Arvis. Closed-source
-              &mdash; the code stays with the client, but here&rsquo;s what I built.
+              Enterprise iOS apps and SDKs shipped at Pinsoft, Arvis, and for freelance clients.
+              Closed-source &mdash; the code stays with the client, but here&rsquo;s what I built.
             </p>
           </Reveal>
 
