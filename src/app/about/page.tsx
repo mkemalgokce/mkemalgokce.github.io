@@ -14,8 +14,17 @@ export const metadata: Metadata = {
     description:
       "iOS Developer in Istanbul with 4+ years building Swift apps and clean architecture.",
     url: "https://mkemalgokce.github.io/about",
-    type: "website",
-    images: [{ url: "/avatar.jpg", width: 460, height: 460, alt: "Mustafa Kemal GÖKÇE" }],
+    type: "profile",
+    images: [
+      { url: "/og.png", width: 1200, height: 630, type: "image/png", alt: "Mustafa Kemal GÖKÇE — iOS Developer" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About | Mustafa Kemal GÖKÇE",
+    description:
+      "iOS Developer in Istanbul with 4+ years building Swift apps and clean architecture.",
+    images: ["/og.png"],
   },
 };
 

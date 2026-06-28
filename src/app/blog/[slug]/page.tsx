@@ -26,22 +26,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return { title: "Post Not Found" };
 
   const url = `${site.url}/blog/${post.slug}`;
+  const ogImage = post.coverImage ?? site.ogImage;
   return {
     title: post.title,
     description: post.excerpt,
+    authors: [{ name: site.name, url: site.url }],
     alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       url,
       type: "article",
-      images: post.coverImage ? [{ url: post.coverImage, alt: post.title }] : undefined,
+      publishedTime: new Date(post.date).toISOString(),
+      authors: [site.name],
+      images: [{ url: ogImage, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: post.coverImage ? [post.coverImage] : undefined,
+      images: [ogImage],
     },
   };
 }
@@ -71,20 +75,32 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const postUrl = `${site.url}/blog/${slug}`;
+  const postImage = post.coverImage
+    ? post.coverImage.startsWith("http")
+      ? post.coverImage
+      : `${site.url}${post.coverImage}`
+    : `${site.url}${site.ogImage}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
     author: {
       "@type": "Person",
       name: site.name,
       alternateName: "Mustafa Kemal GOKCE",
       url: site.url,
     },
-    mainEntityOfPage: postUrl,
-    image: post.coverImage ? [post.coverImage] : undefined,
+    publisher: {
+      "@type": "Person",
+      name: site.name,
+      url: site.url,
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+    url: postUrl,
+    image: [postImage],
   };
 
   return (

@@ -16,7 +16,16 @@ export const metadata: Metadata = {
       "Articles on iOS development, Swift, SwiftUI, and testing.",
     url: "https://mkemalgokce.github.io/blog",
     type: "website",
-    images: [{ url: "/avatar.jpg", width: 460, height: 460, alt: "Mustafa Kemal GÖKÇE" }],
+    images: [
+      { url: "/og.png", width: 1200, height: 630, type: "image/png", alt: "Mustafa Kemal GÖKÇE — iOS Developer" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Mustafa Kemal GÖKÇE",
+    description:
+      "Articles on iOS development, Swift, SwiftUI, and testing.",
+    images: ["/og.png"],
   },
 };
 

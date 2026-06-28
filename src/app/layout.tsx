@@ -49,25 +49,50 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_US",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${site.name} — ${site.role}` }],
+    images: [
+      {
+        url: site.ogImage,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: `${site.name} — ${site.role}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} | ${site.role}`,
     description: "Swift-centric iOS Developer. Projects, blog and more.",
-    images: ["/og.png"],
+    images: [site.ogImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   alternates: {
     canonical: site.url,
     types: { "application/rss+xml": `${site.url}/rss.xml` },
   },
   manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: site.shortName,
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: { telephone: false },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "32x32" },
     ],
-    apple: "/apple-icon.png",
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -79,6 +104,20 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.name,
+  alternateName: ["Mustafa Kemal GOKCE", site.shortName],
+  url: site.url,
+  inLanguage: "en",
+  publisher: {
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -87,6 +126,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={fontVars}>
       <body className="font-sans antialiased bg-bg text-fg">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-fg"

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: { absolute: "Mustafa Kemal GÖKÇE — iOS Developer" },
   description:
     "Mustafa Kemal GÖKÇE (Mustafa Kemal GOKCE) — iOS Developer focused on Swift, clean architecture, and delightful mobile experiences.",
+  alternates: { canonical: site.url },
 }
 
 export default function HomePage() {
@@ -17,9 +18,21 @@ export default function HomePage() {
     name: "Mustafa Kemal GÖKÇE",
     alternateName: ["Mustafa Kemal GOKCE", "MKG"],
     jobTitle: "iOS Developer",
+    description: site.bio,
     url: site.url,
-    sameAs: [site.socials.github, site.socials.linkedin],
+    sameAs: [
+      site.socials.github,
+      site.socials.linkedin,
+      site.socials.appStore,
+    ],
     image: `${site.url}/avatar.jpg`,
+    email: `mailto:${site.email}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Istanbul",
+      addressCountry: "TR",
+    },
+    knowsAbout: [...site.skills],
     worksFor: { "@type": "Organization", name: "Pinsoft" },
   }
 
