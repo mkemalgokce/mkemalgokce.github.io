@@ -295,7 +295,7 @@ function Hero() {
           </a>
           <a
             href="/cv.pdf"
-            download
+            download="Mustafa-Kemal-Gokce-CV.pdf"
             aria-label="Download CV (PDF)"
             className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full glass px-6 py-3.5 text-base font-semibold text-fg transition-transform duration-200 hover:-translate-y-0.5 sm:w-auto"
           >
