@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemeFavicon from "@/components/ThemeFavicon";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -61,6 +62,10 @@ export const metadata: Metadata = {
     canonical: site.url,
     types: { "application/rss+xml": `${site.url}/rss.xml` },
   },
+  icons: {
+    apple: "/apple-icon.png",
+    shortcut: "/favicon.ico",
+  },
 };
 
 export const viewport: Viewport = {
@@ -91,6 +96,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ThemeFavicon />
           {children}
         </ThemeProvider>
       </body>
