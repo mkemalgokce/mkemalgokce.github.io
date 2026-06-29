@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   FiDownload,
@@ -27,6 +27,45 @@ import { Reveal, StaggerGroup, FadeItem } from "@/components/ui/motion";
 
 const REPO = "https://github.com/mkemalgokce/fauxcam";
 const RELEASES = `${REPO}/releases`;
+// Fallback DMG, pinned to a known-good v* (app) release. The repo ships two
+// independent release tracks — v* (FauxCam.dmg) and cli-v* (faux binary) — so the
+// plain /releases/latest redirect can resolve to a CLI release that has no DMG.
+// useLatestAppDmg() resolves the real latest at runtime; this is the no-JS / API
+// failure fallback and only needs bumping if v1.0.2 is ever deleted.
+const APP_DMG_FALLBACK = `${REPO}/releases/download/v1.0.2/FauxCam.dmg`;
+
+type GhAsset = { name: string; browser_download_url: string };
+type GhRelease = { tag_name: string; draft: boolean; prerelease: boolean; assets: GhAsset[] };
+
+// Resolves the FauxCam.dmg of the newest *app* release (tag `v…`, never `cli-v…`),
+// falling back to the pinned DMG when the API is unreachable or rate-limited.
+function useLatestAppDmg() {
+  const [url, setUrl] = useState(APP_DMG_FALLBACK);
+  useEffect(() => {
+    let cancelled = false;
+    fetch("https://api.github.com/repos/mkemalgokce/fauxcam/releases?per_page=30", {
+      headers: { Accept: "application/vnd.github+json" },
+    })
+      .then((r) => (r.ok ? (r.json() as Promise<GhRelease[]>) : Promise.reject(r.status)))
+      .then((releases) => {
+        const appRelease = releases.find(
+          (rel) => !rel.draft && !rel.prerelease && /^v\d/.test(rel.tag_name),
+        );
+        const dmg = appRelease?.assets.find((a) => a.name.toLowerCase().endsWith(".dmg"));
+        if (!cancelled && dmg) setUrl(dmg.browser_download_url);
+      })
+      .catch(() => {
+        /* keep the pinned fallback */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  return url;
+}
+
+const AppDmgContext = createContext(APP_DMG_FALLBACK);
+const useAppDmg = () => useContext(AppDmgContext);
 
 /* ── shared bits ─────────────────────────────────────────────── */
 
@@ -102,37 +141,42 @@ const jsonLd = {
   description:
     "A camera for the iOS Simulator. Feed a still image, a video, your Mac's webcam, or a QR code into apps running in the Simulator — a macOS menu-bar app plus a faux CLI.",
   url: "https://mkemalgokce.github.io/fauxcam",
-  downloadUrl: "https://github.com/mkemalgokce/fauxcam/releases",
+  downloadUrl: "https://github.com/mkemalgokce/fauxcam/releases/download/v1.0.2/FauxCam.dmg",
+  softwareVersion: "1.0.2",
   license: "https://github.com/mkemalgokce/fauxcam/blob/main/LICENSE",
   offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
   author: { "@type": "Person", name: "Mustafa Kemal GÖKÇE" },
 };
 
 export default function FauxCamPage() {
+  const appDmg = useLatestAppDmg();
   return (
-    <div className="min-h-screen bg-[#0b0b0c] text-white antialiased selection:bg-[rgba(255,90,31,0.3)]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <FauxNav />
-      <main id="main" className="overflow-x-hidden">
-        <Hero />
-        <Problem />
-        <Sources />
-        <Viewfinder />
-        <HowItWorks />
-        <Install />
-        <CTA />
-      </main>
-      <FauxFooter />
-    </div>
+    <AppDmgContext.Provider value={appDmg}>
+      <div className="min-h-screen bg-[#0b0b0c] text-white antialiased selection:bg-[rgba(255,90,31,0.3)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <FauxNav />
+        <main id="main" className="overflow-x-hidden">
+          <Hero />
+          <Problem />
+          <Sources />
+          <Viewfinder />
+          <HowItWorks />
+          <Install />
+          <CTA />
+        </main>
+        <FauxFooter />
+      </div>
+    </AppDmgContext.Provider>
   );
 }
 
 /* ── nav ─────────────────────────────────────────────────────── */
 
 function FauxNav() {
+  const appDmg = useAppDmg();
   return (
     <nav aria-label="Primary" className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-[rgba(11,11,12,0.8)] backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-6">
@@ -157,7 +201,7 @@ function FauxNav() {
             <SiGithub className="h-5 w-5" />
           </a>
           <a
-            href={RELEASES}
+            href={appDmg}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-[#FF5A1F] px-4 py-2 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
@@ -174,6 +218,7 @@ function FauxNav() {
 /* ── hero ────────────────────────────────────────────────────── */
 
 function Hero() {
+  const appDmg = useAppDmg();
   return (
     <section id="top" className="relative px-5 pb-16 pt-28 sm:px-6 sm:pt-36">
       <div
@@ -195,7 +240,7 @@ function Hero() {
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href={RELEASES}
+              href={appDmg}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FF5A1F] px-7 py-3.5 text-base font-semibold text-black transition-transform hover:-translate-y-0.5"
@@ -481,7 +526,7 @@ function HowItWorks() {
 
 const CLI_INSTALL = `install -m 0755 faux /usr/local/bin/faux
 
-# First run only: clear the quarantine attribute.
+# First run only: clear the quarantine attribute macOS adds to downloads.
 xattr -d com.apple.quarantine /usr/local/bin/faux 2>/dev/null || true
 
 faux list`;
@@ -493,6 +538,7 @@ faux run com.example.MyApp --source qr:https://example.com`;
 
 function Install() {
   const [tab, setTab] = useState<"app" | "cli">("app");
+  const appDmg = useAppDmg();
   return (
     <section id="install" className="scroll-mt-20 border-y border-white/5 bg-[#0e0e10] px-5 py-24 sm:px-6">
       <div className="mx-auto max-w-3xl">
@@ -537,11 +583,17 @@ function Install() {
                   ● Menu bar
                 </span>
               </div>
+              <p className="text-[15px] leading-relaxed text-white/60">
+                Released from{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">v*</code>{" "}
+                tags as a Developer-ID-signed, notarized{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">FauxCam.dmg</code>.
+              </p>
               <ol className="space-y-3">
                 {[
-                  "Download FauxCam.dmg from the latest release — Developer-ID-signed and notarized.",
+                  "Download FauxCam.dmg from the latest v* release.",
                   "Open the DMG and drag FauxCam.app to /Applications.",
-                  "Launch it. It lives in the menu bar (no Dock icon) — click the icon for the viewfinder.",
+                  "Launch it. FauxCam runs as a menu-bar background agent (LSUIElement) — no Dock icon, no main window. Click its menu-bar icon to open the viewfinder panel.",
                 ].map((step, i) => (
                   <li key={i} className="flex gap-3 rounded-2xl border border-white/10 bg-[#141416] p-4">
                     <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#FF5A1F] font-mono text-sm font-bold text-black">
@@ -551,8 +603,12 @@ function Install() {
                   </li>
                 ))}
               </ol>
+              <p className="text-[13px] leading-relaxed text-white/45">
+                Because the DMG is notarized and stapled, it opens with a normal double-click — no
+                Gatekeeper workaround needed.
+              </p>
               <a
-                href={RELEASES}
+                href={appDmg}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-[#FF5A1F] px-6 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
@@ -564,11 +620,18 @@ function Install() {
           ) : (
             <Reveal className="space-y-4">
               <p className="text-[15px] leading-relaxed text-white/60">
-                Grab the <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">faux</code> binary
+                Released separately from{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">cli-v*</code>{" "}
+                tags. Download the <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">faux</code> binary
                 from the latest <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">cli-v*</code> release
-                and put it on your <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">PATH</code>:
+                and install it on your <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">PATH</code>:
               </p>
               <CodeBlock code={CLI_INSTALL} label="install" />
+              <p className="text-[13px] leading-relaxed text-white/45">
+                If macOS still reports the binary as quarantined, re-run the{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">xattr -d com.apple.quarantine</code>{" "}
+                line against <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-[#FF8A5C]">/usr/local/bin/faux</code>.
+              </p>
               <p className="pt-2 text-[15px] leading-relaxed text-white/60">
                 Serve frames and launch an app with the guest injected, in one command:
               </p>
@@ -589,6 +652,7 @@ function Install() {
 /* ── CTA ─────────────────────────────────────────────────────── */
 
 function CTA() {
+  const appDmg = useAppDmg();
   return (
     <section className="px-5 py-24 sm:px-6">
       <Reveal className="mx-auto max-w-5xl">
@@ -609,7 +673,7 @@ function CTA() {
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href={RELEASES}
+              href={appDmg}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-black px-7 py-3.5 text-base font-semibold text-white transition-transform hover:-translate-y-0.5"
