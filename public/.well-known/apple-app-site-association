@@ -1,6 +1,5 @@
 {
   "applinks": {
-    "apps": [],
     "details": [
       {
         "appIDs": [
@@ -8,7 +7,16 @@
           "Q9ARVAPAG3.com.mkg.sayar.uat",
           "Q9ARVAPAG3.com.mkg.sayar.prod"
         ],
-        "paths": ["*"]
+        "components": [
+          {
+            "/": "/link/sayar",
+            "comment": "Sayar deep link namespace root"
+          },
+          {
+            "/": "/link/sayar/*",
+            "comment": "Sayar deep links, e.g. /link/sayar/expenses/123"
+          }
+        ]
       }
     ]
   }
