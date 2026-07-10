@@ -17,7 +17,7 @@ import {
 } from "react-icons/fi";
 import { HiSparkles } from "react-icons/hi2";
 import { FaApple } from "react-icons/fa";
-import { SayarLogo, SayarNav, SayarFooter } from "./_components/SiteChrome";
+import { SayarLogo, SayarNav, SayarFooter, SAYAR_APP_STORE_URL } from "./_components/SiteChrome";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -61,6 +61,7 @@ const sayarJsonLd = {
   description:
     "A natural-language expense tracker for iOS. Type plain words like “-300 market” and it’s logged — with iCloud sync, CSV/JSON export, and smart insights. Private by design.",
   url: "https://mkemalgokce.github.io/sayar",
+  downloadUrl: "https://apps.apple.com/us/app/sayar-budget-expenses/id6753993398",
   offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
   author: { "@type": "Person", name: "Mustafa Kemal GÖKÇE" },
 };
@@ -138,13 +139,15 @@ function Hero() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
           >
-            <span
-              aria-disabled="true"
-              className="inline-flex w-full cursor-default items-center justify-center gap-3 rounded-2xl bg-slate-900 px-7 py-4 text-base font-semibold text-white shadow-lg shadow-slate-900/10 sm:w-auto"
+            <a
+              href={SAYAR_APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-900 px-7 py-4 text-base font-semibold text-white shadow-lg shadow-slate-900/10 transition-colors hover:bg-slate-700 sm:w-auto"
             >
               <FaApple className="h-5 w-5" aria-hidden />
-              Coming soon to the App Store
-            </span>
+              Download on the App Store
+            </a>
             <a
               href="#features"
               className="text-base font-medium text-slate-500 transition-colors hover:text-slate-900"
@@ -633,13 +636,15 @@ function CTA() {
           <p className="relative mx-auto mt-4 max-w-xl text-lg text-blue-100">
             Download Sayar and record your first expense before you finish reading this sentence.
           </p>
-          <span
-            aria-disabled="true"
-            className="relative mt-9 inline-flex cursor-default items-center gap-3 rounded-2xl bg-white px-8 py-4 text-base font-semibold text-slate-900 shadow-lg"
+          <a
+            href={SAYAR_APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative mt-9 inline-flex items-center gap-3 rounded-2xl bg-white px-8 py-4 text-base font-semibold text-slate-900 shadow-lg transition-transform hover:scale-[1.03]"
           >
             <FaApple className="h-5 w-5" aria-hidden />
-            Coming soon to the App Store
-          </span>
+            Download on the App Store
+          </a>
         </div>
       </Reveal>
     </section>

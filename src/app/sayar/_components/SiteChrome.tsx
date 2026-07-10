@@ -2,6 +2,8 @@ import Link from "next/link";
 import { FaApple } from "react-icons/fa";
 
 export const SAYAR_EMAIL = "mkemaldev@gmail.com";
+export const SAYAR_APP_STORE_URL =
+  "https://apps.apple.com/us/app/sayar-budget-expenses/id6753993398";
 
 export function SayarLogo({ className = "h-8 w-8" }: { className?: string }) {
   return (
@@ -38,13 +40,15 @@ export function SayarNav({ active }: { active?: "privacy" | "terms" }) {
           >
             Terms
           </Link>
-          <span
-            aria-disabled="true"
-            className="inline-flex cursor-default items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+          <a
+            href={SAYAR_APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-700"
           >
             <FaApple className="h-4 w-4" aria-hidden />
-            Coming soon
-          </span>
+            Get Sayar
+          </a>
         </div>
       </div>
     </nav>

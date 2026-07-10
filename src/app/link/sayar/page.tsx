@@ -32,13 +32,15 @@ export default function SayarLinkFallbackPage() {
           </p>
         )}
         <div className="flex flex-col items-center gap-3 sm:flex-row">
-          <Link
-            href="/sayar"
+          <a
+            href="https://apps.apple.com/us/app/sayar-budget-expenses/id6753993398"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
           >
             <FaApple aria-hidden />
             Get Sayar
-          </Link>
+          </a>
           <Link
             href="/"
             className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-slate-600 transition hover:text-slate-900"
