@@ -415,15 +415,17 @@ function StatPill({
     red: "bg-red-100 text-red-500",
   };
   return (
-    <div className="flex items-center gap-2.5 rounded-2xl bg-[#F4F6FA] px-3 py-3">
-      <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ${tints[tint]}`}>
-        {icon}
-      </span>
-      <span className="min-w-0">
-        <span className="block text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+    <div className="rounded-2xl bg-[#F4F6FA] px-3 py-2.5">
+      <div className="flex items-center gap-2">
+        <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${tints[tint]}`}>
+          {icon}
+        </span>
+        <span className="text-[9px] font-semibold uppercase tracking-wide text-slate-400">
           {label}
         </span>
-        <span className="block truncate text-[13px] font-bold tabular-nums">{value}</span>
+      </div>
+      <span className="mt-1.5 block truncate text-[13px] font-bold tabular-nums tracking-tight">
+        {value}
       </span>
     </div>
   );
