@@ -135,6 +135,19 @@ export const workProjects: Project[] = [
 
 export const featuredProjects: Project[] = [
   {
+    id: "takidefteri",
+    name: "Takı Defteri",
+    tagline: "Wedding gold, one ledger",
+    description:
+      "A Turkish wedding-gift ledger. Log who gave which bracelet or quarter-gold coin at every wedding, engagement and henna night, valued live against gram-gold and currency rates. Invitation scanning, CSV backup, iCloud sync — no account, nothing leaves the device.",
+    category: "iOS App",
+    tags: ["SwiftUI", "SwiftData", "Bazel", "App Store"],
+    accent: "amber",
+    year: "2026",
+    href: "/takidefteri",
+    featured: true,
+  },
+  {
     id: "sayar",
     name: "Sayar",
     tagline: "Track every expense with confidence",
