@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  TakiDefteriNav,
-  TakiDefteriFooter,
-  Section,
-  TAKIDEFTERI_EMAIL,
-} from "../_components/SiteChrome";
+import { LegalShell, List, Note, Section, Strong } from "../_components/Legal";
+import { TD_EMAIL } from "../_components/SiteChrome";
 
 const DESC =
-  "Takı Defteri kullanım koşulları: lisans, abonelik şartları, sorumluluk sınırları ve iletişim.";
+  "Takı Defteri kullanım koşulları: lisans, abonelik ve iptal, veri sorumluluğu, altın kuru bilgisinin niteliği ve sorumluluk sınırları.";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları — Takı Defteri",
@@ -18,104 +13,163 @@ export const metadata: Metadata = {
     url: "https://mkemalgokce.github.io/takidefteri/kosullar",
     title: "Kullanım Koşulları — Takı Defteri",
     description: DESC,
+    images: [{ url: "/takidefteri/icon.png", width: 512, height: 512, alt: "Takı Defteri" }],
   },
 };
 
 export default function KosullarPage() {
   return (
-    <div className="min-h-screen bg-white text-stone-900 antialiased">
-      <TakiDefteriNav active="kosullar" />
+    <LegalShell
+      active="kosullar"
+      kicker="Yasal"
+      title="Kullanım Koşulları"
+      updated="Ağustos 2026"
+      intro={
+        <>
+          Takı Defteri&rsquo;ni indirerek ve kullanarak aşağıdaki koşulları kabul etmiş olursun.
+          Uygulama, <Strong>Mustafa Kemal GÖKÇE</Strong> tarafından geliştirilen bağımsız bir iOS
+          uygulamasıdır.
+        </>
+      }
+    >
+      <Section title="1. Lisans">
+        <p>
+          Uygulamayı kişisel, ticari olmayan amaçlarla kullanman için sana devredilemez bir lisans
+          verilir. Uygulamayı tersine mühendisliğe tabi tutamaz, kaynak koduna dönüştüremez, yeniden
+          dağıtamaz veya kiralayamazsın.
+        </p>
+        <p>
+          Uygulamaya girdiğin veriler <Strong>tamamen sana aittir</Strong>. Geliştirici bu veriler
+          üzerinde hiçbir hak talep etmez ve zaten bunlara erişimi yoktur.
+        </p>
+      </Section>
 
-      <main className="px-6 pt-32 pb-20">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-amber-600">Yasal</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Kullanım Koşulları
-          </h1>
-          <p className="mt-4 text-stone-400">Son güncelleme: 5 Ağustos 2026</p>
+      <Section title="2. Kullanım şartları">
+        <p>Uygulamayı kullanırken:</p>
+        <List
+          items={[
+            "Yürürlükteki yasalara uygun davranmayı,",
+            "Başkalarına ait kişisel bilgileri (isim, not gibi) deftere işlerken onların makul beklentilerini gözetmeyi,",
+            "Uygulamayı yasa dışı veya zararlı bir amaçla kullanmamayı kabul edersin.",
+          ]}
+        />
+        <p>
+          Defterine başka kişilerin isimlerini kaydettiğinde bu kayıtların sorumluluğu sana aittir;
+          veriler yalnızca senin cihazında tutulur.
+        </p>
+      </Section>
 
-          <div className="mt-12 space-y-10 leading-relaxed text-stone-600">
-            <Section title="Kabul">
-              <p>
-                Takı Defteri’ni indirerek veya kullanarak bu koşulları kabul etmiş olursunuz.
-                Koşulları kabul etmiyorsanız uygulamayı kullanmayınız.
-              </p>
-            </Section>
+      <Section title="3. Ücretsiz sürüm ve Premium abonelik">
+        <p>
+          Uygulamanın çekirdek özellikleri ücretsizdir: sınırsız kişi, etkinlik ve takı kaydı,
+          istatistikler, karşılık takibi, takvim entegrasyonu ve Face ID kilidi.
+        </p>
+        <p>
+          <Strong>Premium</Strong>, otomatik yenilenen bir abonelik olarak aylık ve yıllık planlarla
+          sunulur ve şu dört özelliği açar: akıllı davetiye tarama, etkinlik hatırlatıcıları, CSV
+          dışa/içe aktarma, iCloud eşitleme.
+        </p>
+        <List
+          items={[
+            "Ödeme, satın almayı onayladığında App Store hesabına yansıtılır.",
+            "Abonelik, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece kendiliğinden yenilenir.",
+            "Yenileme ücreti dönemin bitiminden önceki 24 saat içinde tahsil edilir.",
+            "Abonelikleri satın aldıktan sonra iPhone Ayarlar › adın › Abonelikler bölümünden yönetebilir ve iptal edebilirsin.",
+            "İptal ettiğinde Premium, ödediğin dönemin sonuna kadar açık kalır.",
+          ]}
+        />
+        <p>
+          Fiyatlandırma App Store hesabının ülkesine göre değişir ve güncel fiyat her zaman uygulama
+          içindeki Premium ekranında görünür. İade talepleri Apple tarafından, App Store iade
+          politikası kapsamında değerlendirilir.
+        </p>
+      </Section>
 
-            <Section title="Lisans">
-              <p>
-                Uygulamayı kişisel, ticari olmayan amaçlarla kullanmanız için devredilemez bir lisans
-                verilir. Uygulamayı kaynak koduna dönüştürmek, çoğaltmak veya yeniden dağıtmak
-                yasaktır.
-              </p>
-            </Section>
+      <Section title="4. Altın ve döviz kuru bilgisi">
+        <Note>
+          Uygulamadaki fiyatlar <Strong>bilgilendirme amaçlıdır</Strong>; yatırım tavsiyesi, alım
+          satım fiyatı ya da resmî değerleme değildir.
+        </Note>
+        <p>
+          Kur bilgisi üçüncü taraf bir kaynaktan alınır, gecikmeli olabilir ve doğruluğu garanti
+          edilmez. Uygulama, kur alınamadığında son bilinen değeri kullanır ve bunu ekranda belirtir.
+          Kurlara dayanarak alacağın her kararın sorumluluğu sana aittir.
+        </p>
+        <p>
+          Sikke gram karşılıkları (çeyrek 1,65 gr, tam 6,55 gr gibi) piyasada yaygın kabul gören
+          referans değerlerdir; elindeki sikkenin gerçek ağırlığı ve ayarı farklılık gösterebilir.
+        </p>
+      </Section>
 
-            <Section title="Abonelikler">
-              <p className="mb-4">
-                Premium özellikler aylık veya yıllık otomatik yenilenen abonelikle sunulur. Ücret,
-                satın alma onayında Apple Kimliğinizden tahsil edilir.
-              </p>
-              <p>
-                Abonelik, dönem bitiminden en az 24 saat önce iptal edilmedikçe otomatik yenilenir.
-                Yönetim ve iptal işlemleri cihazınızın App Store hesap ayarlarından yapılır. Ücret
-                iadeleri Apple’ın iade politikasına tabidir.
-              </p>
-            </Section>
+      <Section title="5. Verilerin ve yedekleme sorumluluğu">
+        <p>
+          Verilerin cihazında saklanır. Cihazının kaybolması, bozulması, sıfırlanması ya da
+          uygulamanın silinmesi durumunda yerel veriler kaybolur.
+        </p>
+        <p>
+          Düzenli olarak <Strong>CSV yedeği almanı</Strong> ya da iCloud eşitlemeyi açmanı öneririm.
+          Geliştirici, veri kaybından sorumlu tutulamaz ve kaybolan verileri geri getirme imkânına
+          sahip değildir — çünkü verilerin hiçbir kopyası geliştiricide bulunmaz.
+        </p>
+      </Section>
 
-            <Section title="Verilerinizin sorumluluğu">
-              <p>
-                Kayıtlarınız cihazınızda ve kendi iCloud alanınızda tutulur. Cihaz kaybı, silinmesi
-                veya iCloud ayarlarınızdan kaynaklanan veri kayıplarından geliştirici sorumlu
-                değildir; düzenli olarak CSV yedeği almanız önerilir.
-              </p>
-            </Section>
+      <Section title="6. Cihaz üstü yapay zekâ ve tarama sonuçları">
+        <p>
+          Davetiye tarama, cihaz üstünde çalışan metin tanıma ve dil modelleriyle yapılır. Sonuçlar
+          hatalı ya da eksik olabilir; uygulama bu nedenle her alanı kaydetmeden önce sana onaylatır.
+          Taramadan gelen bilgilerin doğruluğunu kontrol etmek kullanıcının sorumluluğundadır.
+        </p>
+      </Section>
 
-            <Section title="Kur bilgileri">
-              <p>
-                Uygulamada gösterilen altın ve döviz değerleri bilgilendirme amaçlıdır, yatırım
-                tavsiyesi değildir. Kur verileri üçüncü taraf bir servisten alınır; doğruluğu ve
-                kesintisizliği garanti edilmez.
-              </p>
-            </Section>
+      <Section title="7. Üçüncü taraf hizmetler">
+        <p>
+          Uygulama, Apple tarafından işletilen App Store (satın alma), CloudKit (iCloud eşitleme),
+          EventKit (takvim) ve bildirim altyapılarını kullanır. Bu hizmetlerin kullanımı
+          Apple&rsquo;ın kendi koşullarına tabidir. Kur bilgisi ise üçüncü taraf bir veri kaynağından
+          alınır.
+        </p>
+      </Section>
 
-            <Section title="Sorumluluğun sınırlanması">
-              <p>
-                Uygulama olduğu gibi sunulur. Yürürlükteki hukukun izin verdiği ölçüde, uygulamanın
-                kullanımından doğan dolaylı zararlardan geliştirici sorumlu tutulamaz.
-              </p>
-            </Section>
+      <Section title="8. Sorumluluğun sınırlandırılması">
+        <p>
+          Uygulama <Strong>&ldquo;olduğu gibi&rdquo;</Strong> sunulur. Yürürlükteki yasaların izin
+          verdiği azami ölçüde, kesintisiz veya hatasız çalışacağına dair açık ya da zımni bir garanti
+          verilmez.
+        </p>
+        <p>
+          Geliştirici; veri kaybı, kâr kaybı, hatalı hesaplama ya da uygulamanın kullanımından
+          doğabilecek dolaylı zararlardan sorumlu tutulamaz.
+        </p>
+      </Section>
 
-            <Section title="Değişiklikler">
-              <p>
-                Bu koşullar güncellenebilir. Güncel sürüm bu sayfada, üstteki tarihle birlikte
-                yayımlanır. Ayrıca{" "}
-                <Link
-                  href="/takidefteri/gizlilik"
-                  className="font-medium text-amber-700 underline-offset-2 hover:underline"
-                >
-                  gizlilik politikası
-                </Link>{" "}
-                bu koşulların ayrılmaz parçasıdır.
-              </p>
-            </Section>
+      <Section title="9. Değişiklikler">
+        <p>
+          Uygulama ve bu koşullar zaman içinde güncellenebilir; özellikler değişebilir veya
+          kaldırılabilir. Önemli değişiklikler bu sayfada yayımlanır ve yukarıdaki tarih yenilenir.
+          Güncellemeden sonra uygulamayı kullanmaya devam etmen yeni koşulları kabul ettiğin anlamına
+          gelir.
+        </p>
+      </Section>
 
-            <Section title="İletişim">
-              <p>
-                Sorularınız için{" "}
-                <a
-                  href={`mailto:${TAKIDEFTERI_EMAIL}`}
-                  className="font-medium text-amber-700 underline-offset-2 hover:underline"
-                >
-                  {TAKIDEFTERI_EMAIL}
-                </a>
-                .
-              </p>
-            </Section>
-          </div>
-        </div>
-      </main>
+      <Section title="10. Uygulanacak hukuk">
+        <p>
+          Bu koşullar Türkiye Cumhuriyeti mevzuatına tabidir. Tüketici mevzuatından doğan haklarınız
+          saklıdır.
+        </p>
+      </Section>
 
-      <TakiDefteriFooter />
-    </div>
+      <Section title="11. İletişim">
+        <p>
+          Koşullarla ilgili sorun varsa{" "}
+          <a
+            href={`mailto:${TD_EMAIL}?subject=${encodeURIComponent("Takı Defteri — kullanım koşulları")}`}
+            className="font-bold text-[rgb(var(--td-gold-deep))] underline decoration-2 underline-offset-2"
+          >
+            {TD_EMAIL}
+          </a>{" "}
+          adresine yazabilirsin.
+        </p>
+      </Section>
+    </LegalShell>
   );
 }

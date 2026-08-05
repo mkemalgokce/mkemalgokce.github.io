@@ -198,6 +198,117 @@
 }
 
 /* ──────────────────────────────────────────────────────────────
+   Takı Defteri — app-native "warm sticker" theme.
+   Tokens mirror the iOS app 1:1 (DesignSystem/Foundation/Theme+Colors.swift,
+   Radius.swift, Tilt.swift). Scoped to `.td-theme` so the rest of the site
+   keeps its own Liquid Glass identity. `.dark` swaps to the app's dark set.
+   ────────────────────────────────────────────────────────────── */
+.td-theme {
+  --td-bg: 250 243 230; /* #FAF3E6 */
+  --td-surface: 255 253 247; /* #FFFDF7 */
+  --td-surface-2: 242 233 213; /* #F2E9D5 */
+  --td-surface-3: 231 219 193; /* #E7DBC1 */
+
+  --td-ink: 51 41 28; /* #33291C */
+  --td-ink-2: 122 108 85; /* #7A6C55 */
+  --td-ink-3: 176 162 136; /* #B0A288 */
+
+  --td-gold: 217 169 63; /* #D9A93F */
+  --td-gold-deep: 138 103 29; /* #8A671D */
+  --td-gold-soft: 246 231 194; /* #F6E7C2 */
+  --td-pink: 233 136 124; /* #E9887C */
+  --td-mint: 121 196 160; /* #79C4A0 */
+  --td-green: 78 156 119; /* #4E9C77 */
+  --td-green-soft: 223 239 229; /* #DFEFE5 */
+  --td-red: 201 106 87; /* #C96A57 */
+  --td-red-soft: 246 225 219; /* #F6E1DB */
+
+  --td-tile-blue: 155 190 223; /* #9BBEDF */
+  --td-tile-plum: 194 168 216; /* #C2A8D8 */
+  --td-tile-slate: 192 180 155; /* #C0B49B */
+
+  --td-outline: 61 52 40; /* #3D3428 */
+  --td-on-accent: 51 41 28; /* #33291C */
+  --td-line: 61 52 40 / 0.12;
+  --td-line-strong: 61 52 40 / 0.2;
+  --td-shadow: rgb(61 52 40 / 0.16);
+  --td-shadow-strong: rgb(61 52 40 / 0.2);
+
+  color-scheme: light;
+}
+
+.dark .td-theme {
+  --td-bg: 35 32 27; /* #23201B */
+  --td-surface: 46 42 35; /* #2E2A23 */
+  --td-surface-2: 58 52 43; /* #3A342B */
+  --td-surface-3: 71 64 53; /* #474035 */
+
+  --td-ink: 244 237 223; /* #F4EDDF */
+  --td-ink-2: 180 169 143; /* #B4A98F */
+  --td-ink-3: 126 116 95; /* #7E745F */
+
+  --td-gold: 228 181 76; /* #E4B54C */
+  --td-gold-deep: 240 203 121; /* #F0CB79 */
+  --td-gold-soft: 69 55 24; /* #453718 */
+  --td-pink: 226 146 135; /* #E29287 */
+  --td-mint: 124 197 162; /* #7CC5A2 */
+  --td-green: 124 197 162; /* #7CC5A2 */
+  --td-green-soft: 38 56 47; /* #26382F */
+  --td-red: 219 138 120; /* #DB8A78 */
+  --td-red-soft: 67 43 36; /* #432B24 */
+
+  --td-tile-blue: 127 163 198; /* #7FA3C6 */
+  --td-tile-plum: 168 143 194; /* #A88FC2 */
+  --td-tile-slate: 164 151 124; /* #A4977C */
+
+  --td-outline: 20 16 11; /* #14100B */
+  --td-on-accent: 42 33 21; /* #2A2115 */
+  --td-line: 244 237 223 / 0.12;
+  --td-line-strong: 244 237 223 / 0.2;
+  --td-shadow: rgb(0 0 0 / 0.4);
+  --td-shadow-strong: rgb(0 0 0 / 0.45);
+
+  color-scheme: dark;
+}
+
+@layer components {
+  /* The app's stickerLayers(): solid fill, 2px outline, hard 3px offset
+     shadow (a filled copy of the shape — never a blur). */
+  .td-sticker {
+    border: 2px solid rgb(var(--td-outline));
+    box-shadow: 3px 3px 0 var(--td-shadow);
+  }
+  .td-sticker-lg {
+    border: 2px solid rgb(var(--td-outline));
+    box-shadow: 5px 5px 0 var(--td-shadow-strong);
+  }
+  /* Press feedback: the surface slides onto its own shadow (Motion.press). */
+  .td-press {
+    transition:
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .td-press:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--td-shadow);
+  }
+}
+
+@layer utilities {
+  /* Typography.display() — SF Pro Rounded on Apple platforms, Nunito elsewhere. */
+  .td-display {
+    font-family: ui-rounded, "SF Pro Rounded", var(--font-nunito), system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  /* DotGridBackground: 2px dots on a 22px lattice, tinted with `line`. */
+  .td-dotgrid {
+    background-image: radial-gradient(rgb(var(--td-line)) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
    Markdown / blog prose (@tailwindcss/typography)
    ────────────────────────────────────────────────────────────── */
 .prose img {

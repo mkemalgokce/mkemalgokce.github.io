@@ -137,11 +137,11 @@ export const featuredProjects: Project[] = [
   {
     id: "takidefteri",
     name: "Takı Defteri",
-    tagline: "Wedding gold, one ledger",
+    tagline: "A gold-gift ledger for Turkish weddings",
     description:
-      "A Turkish wedding-gift ledger. Log who gave which bracelet or quarter-gold coin at every wedding, engagement and henna night, valued live against gram-gold and currency rates. Invitation scanning, CSV backup, iCloud sync — no account, nothing leaves the device.",
+      "At a Turkish wedding, guests pin gold coins and cash on the couple — and everyone is expected to return the favour later. Takı Defteri records who gave what at which event, converts every coin, bracelet and banknote to 24K grams at that day’s rate, and tracks who you still owe. Scans the invitation on-device to fill in the event.",
     category: "iOS App",
-    tags: ["SwiftUI", "SwiftData", "Bazel", "App Store"],
+    tags: ["SwiftUI", "SwiftData", "Foundation Models", "CloudKit"],
     accent: "amber",
     year: "2026",
     href: "/takidefteri",

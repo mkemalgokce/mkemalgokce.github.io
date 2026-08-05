@@ -1,19 +1,32 @@
 import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
+import "./screens.css";
 
-const TAKIDEFTERI_DESC =
-  "Düğün, nişan ve kına takılarını kişi kişi kaydedin. Çeyrek, bilezik, ziynet ve nakit hediyeler güncel altın kuruyla değerlensin; kimin ne taktığı hep elinizin altında olsun.";
+// The app's display type is SF Pro Rounded. Apple devices get it from
+// `ui-rounded`; everyone else falls back to Nunito, which carries the same
+// friendly, round-terminal feel. See `.td-display` in globals.css.
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  weight: ["600", "700", "800"],
+  variable: "--font-nunito",
+  display: "swap",
+});
+
+const TITLE = "Takı Defteri — Halaya sen çık, hesabı defter tutsun";
+const DESC =
+  "Düğün, kına, nişan ve sünnette kim ne taktı, sen kime ne takacaksın — hepsi tek defterde. Takılar 24 ayar gram altına çevrilir, karşılık takibi yapılır. iPhone için, verilerin cihazında kalır.";
 
 export const metadata: Metadata = {
-  title: "Takı Defteri — Düğün takıları tek defterde",
-  description: TAKIDEFTERI_DESC,
+  title: TITLE,
+  description: DESC,
   keywords: [
     "takı defteri",
-    "düğün takısı",
-    "altın takip",
-    "çeyrek altın",
-    "nişan takısı",
-    "ziynet",
-    "hediye kaydı",
+    "düğün takı takibi",
+    "altın takip uygulaması",
+    "kına gecesi takı",
+    "nişan takı defteri",
+    "çeyrek altın hesaplama",
+    "düğün hediye kaydı",
   ],
   alternates: { canonical: "https://mkemalgokce.github.io/takidefteri" },
   openGraph: {
@@ -21,25 +34,27 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://mkemalgokce.github.io/takidefteri",
     siteName: "Takı Defteri",
-    title: "Takı Defteri — Düğün takıları tek defterde",
-    description: TAKIDEFTERI_DESC,
-    images: [
-      { url: "/takidefteri-icon.png", width: 256, height: 256, alt: "Takı Defteri uygulama simgesi" },
-    ],
+    title: TITLE,
+    description: DESC,
+    images: [{ url: "/takidefteri/icon.png", width: 512, height: 512, alt: "Takı Defteri" }],
   },
   twitter: {
     card: "summary",
-    title: "Takı Defteri — Düğün takıları tek defterde",
-    description: TAKIDEFTERI_DESC,
-    images: ["/takidefteri-icon.png"],
+    title: TITLE,
+    description: DESC,
+    images: ["/takidefteri/icon.png"],
   },
 };
 
-// Apple feel: override the site's global JetBrains Mono with the system SF
-// stack for the entire Takı Defteri section.
+// Apple feel: override the site's global mono/Inter stack with the system SF
+// stack for the whole Takı Defteri section, with Nunito available for display.
 const APPLE_SANS =
-  '-apple-system, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+  '-apple-system, "SF Pro Text", "SF Pro Display", var(--font-nunito), system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 
 export default function TakiDefteriLayout({ children }: { children: React.ReactNode }) {
-  return <div style={{ fontFamily: APPLE_SANS }}>{children}</div>;
+  return (
+    <div className={nunito.variable} style={{ fontFamily: APPLE_SANS }}>
+      {children}
+    </div>
+  );
 }
