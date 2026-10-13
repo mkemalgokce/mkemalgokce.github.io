@@ -10,7 +10,7 @@ import { FiSun, FiMoon } from "react-icons/fi";
 export const TD_EMAIL = "mkemaldev@gmail.com";
 
 /** App Store listing — the single source every CTA on the site reads from. */
-export const TD_APP_STORE_URL = "https://apps.apple.com/tr/app/id6797252753";
+export const TD_APP_STORE_URL = "https://apps.apple.com/us/app/tak%C4%B1-defteri-d%C3%BC%C4%9F%C3%BCn-tak%C4%B1s%C4%B1/id6797252753";
 
 export type TdNavKey = "home" | "destek" | "gizlilik" | "kosullar";
 
