@@ -28,7 +28,6 @@ import { Reveal, StaggerGroup, FadeItem } from "@/components/ui/motion";
 const REPO = "https://github.com/mkemalgokce/Watcher";
 const RELEASES = `${REPO}/releases/latest`;
 const SPONSOR = "https://github.com/sponsors/mkemalgokce";
-const VERSION = "0.1.1";
 
 // Brand colours from the app icon. Text shades are darkened on light backgrounds to keep AA contrast.
 const ORANGE_TEXT = "text-[#A84E00] dark:text-[#FF8A1F]";
@@ -52,7 +51,7 @@ function Label({ children, className = "", tone = "orange" }: { children: React.
 }
 
 function Code({ children }: { children: React.ReactNode }) {
-  return <code className="rounded bg-fg/[0.07] px-1.5 py-0.5 font-mono text-[0.85em] text-fg">{children}</code>;
+  return <code className="rounded bg-fg/[0.07] px-1.5 py-0.5 font-mono text-[0.85em] text-fg [font-variant-ligatures:none]">{children}</code>;
 }
 
 function Kbd({ children }: { children: React.ReactNode }) {
@@ -91,8 +90,15 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="overflow-x-auto px-4 py-4 font-mono text-[13px] leading-relaxed text-fg">
-        <code>{code}</code>
+      <pre className="overflow-x-auto px-4 py-4 font-mono text-[13px] leading-relaxed text-fg [font-variant-ligatures:none]">
+        <code>
+          {code.split("\n").map((line, i) => (
+            <span key={i} className={/^\s*(#|\/\/)/.test(line) ? "text-fg-muted" : undefined}>
+              {line}
+              {"\n"}
+            </span>
+          ))}
+        </code>
       </pre>
       <span role="status" aria-live="polite" className="sr-only">
         {copied ? "Copied to clipboard" : ""}
@@ -107,14 +113,16 @@ type Shot = { src: string; width: number; height: number; alt: string };
 function Screenshot({ shot, priority = false }: { shot: Shot; priority?: boolean }) {
   return (
     <figure className="overflow-hidden rounded-2xl border border-border bg-card-muted p-1.5 shadow-lift dark:border-white/10 dark:bg-white/[0.04] sm:p-2">
-      <Image
-        src={shot.src}
-        alt={shot.alt}
-        width={shot.width}
-        height={shot.height}
-        priority={priority}
-        className="h-auto w-full rounded-xl"
-      />
+      <a href={shot.src} target="_blank" rel="noopener noreferrer" aria-label={`Open full size: ${shot.alt}`} className="block cursor-zoom-in">
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          width={shot.width}
+          height={shot.height}
+          priority={priority}
+          className="h-auto w-full rounded-xl"
+        />
+      </a>
     </figure>
   );
 }
@@ -128,7 +136,6 @@ type Feature = {
   intro: string;
   bullets: React.ReactNode[];
   shots: Shot[];
-  wide?: boolean;
 };
 
 const FEATURES: Feature[] = [
@@ -151,7 +158,6 @@ const FEATURES: Feature[] = [
         alt: "Watcher main window: captured HTTPS requests grouped by app and domain, with a JSON response in the inspector",
       },
     ],
-    wide: true,
   },
   {
     id: "inspect",
@@ -165,7 +171,7 @@ const FEATURES: Feature[] = [
       "Syntax highlighting that colours only the visible lines, so a 30 MB response stays responsive.",
       "One search field with tokens for method, status, content type and host.",
     ],
-    shots: [{ src: "/watcher/compare.png", width: 1800, height: 1120, alt: "Comparing two JSON responses line by line in Watcher" }],
+    shots: [{ src: "/watcher/compare.png", width: 1800, height: 400, alt: "Diff of two JSON responses in Watcher: plan changes from free to pro and a seats field is added" }],
   },
   {
     id: "mock",
@@ -213,27 +219,34 @@ const FEATURES: Feature[] = [
   },
 ];
 
-const CLI = `swift run watcher-cli start --har session.har    # capture to a HAR file
+const CLI = `# capture to a HAR file
+swift run watcher-cli start --har session.har
 swift run watcher-cli tool block-list on
-swift run watcher-cli rules export rules.json    # also: rules import, rules import-charles
+# also: rules import, rules import-charles
+swift run watcher-cli rules export rules.json
 swift run watcher-cli install-simulator-cert --device booted
-swift run watcher-cli android cert               # also: android list | proxy --port 9090 | unproxy
-swift run watcher-cli mcp                        # MCP server on stdin/stdout`;
+# also: android list | proxy --port 9090 | unproxy
+swift run watcher-cli android cert
+# MCP server on stdin/stdout
+swift run watcher-cli mcp`;
 
 const CURL = `curl -x http://127.0.0.1:9090 --cacert ~/.watcher/watcher-ca.pem https://example.com/`;
 
-const SCRIPT = `async function onRequest(context, url, request) {   // request: method, headers, queries, body
+const SCRIPT = `// request: method, headers, queries, body
+async function onRequest(context, url, request) {
   request.headers["X-Watcher"] = "1";
   return request;
 }
-async function onResponse(context, url, request, response) {   // response: statusCode, headers, body, bodyFilePath
+// response: statusCode, headers, body, bodyFilePath
+async function onResponse(context, url, request, response) {
   response.statusCode = 200;
   return response;
 }`;
 
 const BUILD = `git clone https://github.com/mkemalgokce/watcher.git
 cd watcher
-tools/build-app.sh   # writes build/Watcher.app, signed ad hoc for this Mac`;
+# writes build/Watcher.app, signed ad hoc for this Mac
+tools/build-app.sh`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -245,7 +258,6 @@ const jsonLd = {
     "A free, open-source HTTP and HTTPS debugging proxy for macOS. Capture, decrypt, inspect, mock and modify traffic from your Mac, iOS Simulators, iPhones, iPads and Android devices.",
   url: "https://mkemalgokce.github.io/watcher",
   downloadUrl: RELEASES,
-  softwareVersion: VERSION,
   license: `${REPO}/blob/main/LICENSE`,
   offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
   author: { "@type": "Person", name: "Mustafa Kemal GÖKÇE" },
@@ -286,7 +298,7 @@ function WatcherNav() {
     <nav aria-label="Primary" className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-bg/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex items-center gap-2.5">
-          <Image src="/watcher/icon.png" alt="" width={30} height={30} className="h-[30px] w-[30px]" />
+          <Image src="/watcher/icon.png" alt="" width={30} height={30} className="h-[30px] w-[30px] rounded-[7px] ring-1 ring-border" />
           <span className="text-lg font-bold tracking-tight">Watcher</span>
         </a>
         <div className="flex items-center gap-1 sm:gap-2">
@@ -338,7 +350,7 @@ function Hero() {
           <Image src="/watcher/icon.png" alt="Watcher app icon" width={96} height={96} priority className="mx-auto h-20 w-20 sm:h-24 sm:w-24" />
           <Label className="mt-6 justify-center">Free and open source · MIT</Label>
           <h1 className="mt-5 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
-            The HTTP and HTTPS debugging proxy for <span className={ORANGE_TEXT}>mac</span>
+            The HTTP and HTTPS debugging proxy for <span className="text-[#C25E00] dark:text-[#FF8A1F]">mac</span>
             <span className={TEAL_TEXT}>OS</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted">
@@ -357,7 +369,7 @@ function Hero() {
             </a>
           </div>
           <p className="mt-6 font-mono text-xs uppercase tracking-[0.16em] text-fg-muted">
-            v{VERSION} · macOS 14+ · Apple silicon · Signed and notarized
+            macOS 14+ · Apple silicon · Signed and notarized
           </p>
         </motion.div>
 
@@ -400,7 +412,7 @@ function HeroVideo() {
         loop
         playsInline
         preload="metadata"
-        poster="/watcher/poster.png"
+        poster="/watcher/hero-poster.jpg"
         aria-label="Watcher demo: capturing, inspecting and mocking HTTPS traffic"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
@@ -422,7 +434,7 @@ function HeroVideo() {
 /* ── features ────────────────────────────────────────────────── */
 
 function FeatureSection({ feature, index }: { feature: Feature; index: number }) {
-  const { id, label, title, intro, bullets, shots, wide } = feature;
+  const { id, label, title, intro, bullets, shots } = feature;
   const tinted = index % 2 === 0;
   const tone = index % 2 === 0 ? "orange" : "teal";
   const check = tone === "orange" ? ORANGE_TEXT : TEAL_TEXT;
@@ -431,7 +443,7 @@ function FeatureSection({ feature, index }: { feature: Feature; index: number })
       <Label tone={tone}>{label}</Label>
       <h2 className="mt-4 text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">{title}</h2>
       <p className="mt-4 text-lg leading-relaxed text-fg-muted">{intro}</p>
-      <ul className={`mt-7 grid gap-3 ${wide ? "md:grid-cols-2" : ""}`}>
+      <ul className="mt-7 grid gap-3 md:grid-cols-2">
         {bullets.map((b, i) => (
           <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-fg-muted">
             <FiCheckCircle className={`mt-1 h-4 w-4 shrink-0 ${check}`} aria-hidden />
@@ -442,7 +454,7 @@ function FeatureSection({ feature, index }: { feature: Feature; index: number })
     </Reveal>
   );
   const media = (
-    <Reveal delay={0.1} className="space-y-5">
+    <Reveal delay={0.1} className={`grid items-start gap-5 ${shots.length > 1 ? "lg:grid-cols-2" : ""}`}>
       {shots.map((s) => (
         <Screenshot key={s.src} shot={s} />
       ))}
@@ -454,17 +466,10 @@ function FeatureSection({ feature, index }: { feature: Feature; index: number })
       className={`scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24 ${tinted ? "border-y border-border bg-bg-subtle" : ""}`}
     >
       <div id={index === 0 ? id : undefined} className="mx-auto max-w-6xl">
-        {wide ? (
-          <div className="space-y-12">
-            <div className="max-w-4xl">{text}</div>
-            {media}
-          </div>
-        ) : (
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className={`min-w-0 ${index % 2 === 1 ? "lg:order-2" : ""}`}>{text}</div>
-            {media}
-          </div>
-        )}
+        <div className="space-y-12">
+          <div className="max-w-4xl">{text}</div>
+          {media}
+        </div>
       </div>
     </section>
   );
@@ -613,16 +618,18 @@ function OpenSource() {
         <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PILLARS.map(({ Icon, title, body, href, cta }, i) => (
             <FadeItem key={title} className="h-full">
-              <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-6 shadow-soft">
-                <span
-                  className={`grid h-11 w-11 place-items-center rounded-2xl text-xl ${
-                    i % 2 === 0 ? `bg-[#FF8A1F]/12 ${ORANGE_TEXT}` : `bg-[#17A9C4]/12 ${TEAL_TEXT}`
-                  }`}
-                >
-                  <Icon aria-hidden />
-                </span>
-                <h3 className="mt-5 text-lg font-bold tracking-tight">{title}</h3>
-                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-fg-muted">{body}</p>
+              <div className="flex h-full flex-col rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-6">
+                <div className="flex items-center gap-3 sm:block">
+                  <span
+                    className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-xl ${
+                      i % 2 === 0 ? `bg-[#FF8A1F]/[0.12] ${ORANGE_TEXT}` : `bg-[#17A9C4]/[0.12] ${TEAL_TEXT}`
+                    }`}
+                  >
+                    <Icon aria-hidden />
+                  </span>
+                  <h3 className="text-lg font-bold tracking-tight sm:mt-5">{title}</h3>
+                </div>
+                <p className="mt-3 flex-1 text-[15px] sm:mt-2 leading-relaxed text-fg-muted">{body}</p>
                 {href && (
                   <a
                     href={href}
@@ -704,7 +711,7 @@ function WatcherFooter() {
     <footer className="border-t border-border px-4 py-12 sm:px-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2.5">
-          <Image src="/watcher/icon.png" alt="" width={28} height={28} className="h-7 w-7" />
+          <Image src="/watcher/icon.png" alt="" width={28} height={28} className="h-7 w-7 rounded-[7px] ring-1 ring-border" />
           <span className="text-base font-bold tracking-tight">Watcher</span>
         </div>
         <nav aria-label="Watcher links" className="flex flex-wrap gap-x-6 gap-y-2">
