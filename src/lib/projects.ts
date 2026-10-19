@@ -135,6 +135,20 @@ export const workProjects: Project[] = [
 
 export const featuredProjects: Project[] = [
   {
+    id: "watcher",
+    name: "Watcher",
+    tagline: "A free HTTP and HTTPS debugging proxy for macOS",
+    description:
+      "Capture, decrypt, inspect, mock and modify network traffic from your Mac, iOS Simulators, iPhones, iPads and Android devices. Breakpoints, Map Local and Remote, JavaScript scripting, a headless CLI and an MCP server. Native SwiftUI, open source under MIT.",
+    category: "Developer Tool",
+    tags: ["macOS", "SwiftUI", "SwiftNIO", "HTTPS Proxy"],
+    accent: "amber",
+    year: "2026",
+    href: "/watcher",
+    repo: "https://github.com/mkemalgokce/Watcher",
+    featured: true,
+  },
+  {
     id: "takidefteri",
     name: "Takı Defteri",
     tagline: "A gold-gift ledger for Turkish weddings",
