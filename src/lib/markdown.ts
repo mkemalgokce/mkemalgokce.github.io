@@ -39,6 +39,33 @@ const rehypeShiftHeadings: Plugin<[]> = () => (tree) => {
   shiftHeadings(tree as HastNode)
 }
 
+// `![alt](clip.mp4 "poster.jpg")` becomes a muted, looping video with controls and that poster; the markdown has no raw
+// HTML to write one with.
+interface HastElement extends HastNode {
+  properties?: Record<string, unknown>
+}
+function videosFromImages(node: HastElement): void {
+  const src = node.properties?.src
+  if (node.type === 'element' && node.tagName === 'img' && typeof src === 'string' && /\.(mp4|webm)$/i.test(src)) {
+    const { alt, title } = node.properties ?? {}
+    node.tagName = 'video'
+    node.properties = {
+      src,
+      controls: true,
+      muted: true,
+      loop: true,
+      playsInline: true,
+      preload: 'metadata',
+      ...(typeof alt === 'string' ? { ariaLabel: alt } : {}),
+      ...(typeof title === 'string' ? { poster: title } : {}),
+    }
+  }
+  node.children?.forEach(videosFromImages)
+}
+const rehypeVideoImages: Plugin<[]> = () => (tree) => {
+  videosFromImages(tree as HastElement)
+}
+
 export interface Post {
   slug: string
   title: string
@@ -73,6 +100,7 @@ export function getPostBySlug(slug: string): Post | null {
       .use(remarkParse)
       .use(remarkRehype)
       .use(rehypeShiftHeadings)
+      .use(rehypeVideoImages)
       .use(rehypeHighlight)
       .use(rehypeStringify)
       .processSync(content)
